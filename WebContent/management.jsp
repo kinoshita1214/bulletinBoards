@@ -14,6 +14,7 @@
 <div class="header">
 	<c:if test="${ not empty loginUser }">
 		<a href="signup">新規ユーザー登録</a>
+		<a href="./">ホーム</a>
 	</c:if>
 </div>
 <div class = "managements">
@@ -21,16 +22,34 @@
 		<div class = "management">
 			<div class = "users">
 				<div class="login_id-name">
-					<form action ="settings" method = "post">
-						<table border = 1>
-							<tr><td><span class="login_id"><c:out value="${management.login_id}" /></span></td>
-							<td><span class = "name"><c:out value="${management.name}" /></span></td>
-							<td><span class = "branch_name"><c:out value="${management.branch_name}" /></span></td>
-							<td><span class = "department_name"><c:out value="${management.department_name}" /></span></td>
-							<td><input type = "submit" value = "編集"></td>
-							<td><input type = "submit" value = "停止"></td></tr>
-						</table>
-					</form>
+					<table border = 1>
+						<tr>
+								<td><span class="login_id"><c:out value="${management.login_id}" /></span></td>
+								<td><span class = "name"><c:out value="${management.name}" /></span></td>
+								<td><span class = "branch_name"><c:out value="${management.branch_name}" /></span></td>
+								<td><span class = "department_name"><c:out value="${management.department_name}" /></span></td>
+								<td>
+									<form action ="settings" method = "get">
+										<input type = "submit" value = "編集">
+									</form>
+								</td>
+								<td>
+									<form action = "stop" method = "post">
+										<c:if test = "${ management.is_stoped == 0 }">
+											<input type = "hidden" name = "management.id" value = "${ management.id }" />
+											<input type = "hidden" name = "is_stoped" value = 1 />
+											<input type = "submit" value = "停止"/>
+										</c:if>
+
+										<c:if test = "${ management.is_stoped ==1 }">
+											<input type = "hidden" name = "management.id" value = "${ management.id }" />
+											<input type = "hidden" name = "is_stoped" value = 0 />
+											<input type = "submit" value = "復活 /">
+										</c:if>
+									</form>
+								</td>
+						<tr>
+					</table>
 				</div>
 			</div>
 		</div>

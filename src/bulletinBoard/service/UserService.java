@@ -6,6 +6,7 @@ import static bulletinBoard.utils.DBUtil.*;
 import java.sql.Connection;
 
 import bulletinBoard.beans.User;
+import bulletinBoard.dao.CommentDao;
 import bulletinBoard.dao.UserDao;
 import bulletinBoard.utils.CipherUtil;
 public class UserService {
@@ -78,5 +79,27 @@ public class UserService {
 		} finally {
 			close (connection);
 		}
+	}
+	public void invert (User user) {
+		Connection connection = null;
+		try {
+			connection = getConnection();
+
+			CommentDao commentDao = new CommentDao();
+			commentDao.stop(connection, user);
+
+			commit(connection);
+
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
 	}
 }

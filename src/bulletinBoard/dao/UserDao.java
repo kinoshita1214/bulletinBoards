@@ -160,6 +160,21 @@ public class UserDao {
 		}
 	}
 
+	public void stop (Connection connection , User user) {
+
+		PreparedStatement ps = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE users SET");
+			sql.append("is_stoped = ?");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ps.setInt (1 , user.getIs_stoped());
+
+		}
+	}
+
 }
 
 
