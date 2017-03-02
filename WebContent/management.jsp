@@ -11,7 +11,11 @@
 </head>
 <body>
 <div class = "main-contents">
-
+<div class="header">
+	<c:if test="${ not empty loginUser }">
+		<a href="signup">新規ユーザー登録</a>
+	</c:if>
+</div>
 <div class = "managements">
 	<c:forEach items = "${ managements }" var = "management">
 		<div class = "management">

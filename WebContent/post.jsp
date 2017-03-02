@@ -18,10 +18,10 @@
 			件名<br />
 			<input type = "text" name = "subject" size = "50" ><br />
 			投稿<br />
-			<textarea name="post" cols="100" rows="5" class="tweet-box"></textarea>
+			<textarea name="post" cols="100" rows="5" class="text-box"></textarea><br />
 			カテゴリ<br />
 			<input type = "text" name = "category" size = "50"><br />
-			<input type="submit" value="投稿">（1000文字まで）
+			<input type="submit" value="投稿"><input type = "reset" value = "リセット">（1000文字まで）
 		</form>
 	</c:if>
 </div>

@@ -35,14 +35,15 @@ public class PostService {
 			close(connection);
 		}
 	}
-	public List<UserPost> getMessage(Integer user_id) {
+
+	public List<UserPost> getPost(Integer use_id) {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
 
 			UserPostDao postDao = new UserPostDao();
-			List<UserPost> ret = postDao.getUserPosts(connection , user_id);
+			List<UserPost> ret = postDao.getUserPosts(connection);
 
 			commit(connection);
 

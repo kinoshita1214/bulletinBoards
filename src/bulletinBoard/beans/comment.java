@@ -4,7 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServlet;
 
-public class comment extends HttpServlet {
+public class Comment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private int id;

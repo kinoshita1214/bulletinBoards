@@ -34,16 +34,17 @@ public class NewPostServlet extends HttpServlet {
 			User user = (User) session.getAttribute("loginUser");
 
 			Post post = new Post();
-			post.setSubject(request.getParameter("post"));
-			post.setText(request.getParameter("post"));
 			post.setUser_id(user.getId());
+			post.setSubject(request.getParameter("subject"));
+			post.setText(request.getParameter("post"));
+			post.setCategory(request.getParameter("category"));
 
 			new PostService().register(post);
 
-			response.sendRedirect("/post");
+			response.sendRedirect("./");
 		} else {
 			session.setAttribute("errorMessages", posts);
-			response.sendRedirect("/post");
+			response.sendRedirect("./");
 		}
 	}
 

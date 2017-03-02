@@ -45,13 +45,13 @@ public class UserManagementDao {
 		try {
 			while (rs.next()) {
 				String login_id = rs.getString("login_id");
-				String user_name = rs.getString("user_name");
+				String name = rs.getString("name");
 				String branch_name = rs.getString("branch_name");
 				String department_name = rs.getString("department_name");
 
 				UserManagement management = new UserManagement();
 				management.setLogin_id(login_id);
-				management.setName(user_name);
+				management.setName(name);
 				management.setBranch_name(branch_name);
 				management.setDepartment_name(department_name);
 

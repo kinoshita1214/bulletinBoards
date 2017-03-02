@@ -34,14 +34,40 @@
 
 
 <div class="posts">
-	<c:forEach items="${posts}" var="message">
+	<c:forEach items="${ posts }" var="post">
 		<div class="login_id-name">
 			<span class="login_id"><c:out value = "${post.login_id}" /></span>
 			<span class="name"><c:out value = "${post.name}" /></span>
 		</div>
-		<div class = "subject"><c:out value = "${ post.subject }" /></div>
-		<div class = "text"><c:out value = "${post.text}" /></div>
+		件名:<div class = "subject"><c:out value = "${ post.subject }" /></div>
+		本文:<div class = "text"><c:out value = "${post.text}" /></div>
+		カテゴリー:<div class = "category"><c:out value = "${ post.category }" /></div>
 		<div class = "date"><fmt:formatDate value = "${post.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+
+			<div class="comments">
+				<c:forEach items="${ comments }" var="comment">
+				<c:if test = "${ comment.post_id == post.id }">
+					コメント<br />
+					<div class="login_id-name">
+						<span class="login_id"><c:out value = "${comment.login_id}" /></span>
+						<span class="name"><c:out value = "${comment.name}" /></span>
+						<span class="post_id"></span>
+					</div>
+					<div class = "text"><c:out value = "${comment.text}" /></div>
+					<div class = "date"><fmt:formatDate value = "${comment.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+				</c:if>
+				</c:forEach>
+			</div>
+
+		<div class="form-area">
+			コメント<br />
+			<form action="newComment" method="post" >
+				<input type = "hidden" name = "post_id" value = "${ post.id }"/>
+				<textarea name="text" cols="100" rows="5" class="comment-box"></textarea>
+				<br />
+				<input type="submit" value="コメント">（500文字まで）
+			</form>
+		</div>
 	</c:forEach>
 </div>
 

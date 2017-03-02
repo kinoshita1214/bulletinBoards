@@ -15,28 +15,30 @@ import bulletinBoard.exception.SQLRuntimeException;
 public class UserDao {
 	public User getUser(Connection connection , String login_id , String password) {
 		PreparedStatement ps = null;
-		List<User> userList = new ArrayList<User>();
+
 		try {
-			String sql = "SELECT login_id , password FROM users";
+			String sql = "SELECT * FROM users WHERE login_id = ? AND password = ?";
+
 			ps = connection.prepareStatement(sql);
+			ps.setString(1, login_id);
+			ps.setString(2, password);
+
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				login_id = rs.getString ("login_id");
-				password = rs.getString ("password");
-				User user = new User();
-				userList.add (user);
-			}
+			List<User> userList = toUserList(rs);
 			if (userList.isEmpty() == true) {
 				return null;
+			} else if (2 <= userList.size()) {
+				throw new IllegalStateException("2 <= userList.size()");
 			} else {
 				return userList.get(0);
 			}
 		} catch (SQLException e) {
-			throw new SQLRuntimeException (e);
+			throw new SQLRuntimeException(e);
 		} finally {
 			close(ps);
 		}
 	}
+
 
 	private List<User> toUserList(ResultSet rs) throws SQLException {
 
@@ -45,16 +47,16 @@ public class UserDao {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String login_id = rs.getString("login_id");
-				String branch_name = rs.getString("branch_name");
-				String department_name = rs.getString("department_name");
+				int branch_id = rs.getInt("branch_id");
+				int department_id = rs.getInt("department_id");
 				String name = rs.getString("name");
 				String password = rs.getString("password");
 
 				User user = new User();
 				user.setId(id);
 				user.setLogin_id(login_id);
-				user.setBranch_name(branch_name);
-				user.setDepartment_name(department_name);
+				user.setBranch_id(branch_id);
+				user.setDepartment_id(department_id);
 				user.setName(name);
 				user.setPassword(password);
 
@@ -70,31 +72,32 @@ public class UserDao {
 		PreparedStatement ps = null;
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append("INSERT INTO managements ( ");
-			sql.append("id");
-			sql.append(", login_id");
-			sql.append(", branch_name");
-			sql.append(", department_name");
+			sql.append("INSERT INTO users ( ");
+			//sql.append("id");
+			sql.append(" login_id");
+			sql.append(", branch_id");
+			sql.append(", department_id");
 			sql.append(", name");
 			sql.append(", password");
 			sql.append(") VALUES (");
-			sql.append("?"); // id
-			sql.append(", ?"); // login_id
-			sql.append(", ?"); // branch_name
-			sql.append(", ?"); // department_name
+			//sql.append("?"); // id
+			sql.append(" ?"); // login_id
+			sql.append(", ?"); // branch_id
+			sql.append(", ?"); // department_id
 			sql.append(", ?"); // name
 			sql.append(", ?"); // password
 			sql.append(")");
 
 			ps = connection.prepareStatement(sql.toString());
 
+			//ps.setInt(1 , user.getId());
 			ps.setString(1, user.getLogin_id());
-			ps.setString(2, user.getBranch_name());
-			ps.setString(3, user.getDepartment_name());
+			ps.setInt(2, user.getBranch_id());
+			ps.setInt(3, user.getDepartment_id());
 			ps.setString(4, user.getName());
 			ps.setString(5, user.getPassword());
 
-			//System.out.println(ps.toString());
+			System.out.println(ps.toString());
 
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -111,16 +114,16 @@ public class UserDao {
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE user SET");
 			sql.append("  login_id = ?");
-			sql.append(", branch_name = ?");
-			sql.append(", department_name = ?");
+			sql.append(", branch_id = ?");
+			sql.append(", department_id = ?");
 			sql.append(", name = ?");
 			sql.append(", password = ?");
 
 			ps = connection.prepareStatement(sql.toString());
 
 			ps.setString(1, user.getLogin_id());
-			ps.setString(2, user.getBranch_name());
-			ps.setString(3, user.getDepartment_name());
+			ps.setInt(2, user.getBranch_id());
+			ps.setInt(3, user.getDepartment_id());
 			ps.setString(4, user.getName());
 			ps.setString(5, user.getPassword());
 

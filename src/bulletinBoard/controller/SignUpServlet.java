@@ -13,7 +13,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
+import bulletinBoard.beans.Branch;
+import bulletinBoard.beans.Department;
 import bulletinBoard.beans.User;
+import bulletinBoard.service.BranchService;
 import bulletinBoard.service.UserService;
 
 @WebServlet(urlPatterns = { "/signup" })
@@ -21,6 +24,10 @@ public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Branch> branch = new BranchService().getBranch();
+		request.setAttribute("branch" , branch);
+		List<Department> department = new DepartmentService().getDepartment();
+		request.setAttribute("department" , department);
 		request.getRequestDispatcher("signup.jsp").forward(request , response);
 	}
 	@Override
@@ -33,9 +40,10 @@ public class SignUpServlet extends HttpServlet {
 			user.setLogin_id(request.getParameter("login_id"));
 			user.setName(request.getParameter("name"));
 			user.setPassword(request.getParameter("password"));
-			user.setBranch_name(request.getParameter("branch_name"));
-			user.setDepartment_name(request.getParameter("department_name"));
+			user.setBranch_id(Integer.parseInt(request.getParameter("branch_id")));
+			user.setDepartment_id(Integer.parseInt(request.getParameter("department_id")));
 
+			System.out.println(user.toString());
 			new UserService().register(user);
 
 			response.sendRedirect("./");

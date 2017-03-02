@@ -25,7 +25,7 @@ public class PostDao {
 			sql.append(", update_date");
 			sql.append(") VALUES (");
 
-			sql.append(", ?"); // user_id
+			sql.append(" ?"); // user_id
 			sql.append(", ?"); // subject
 			sql.append(", ?"); // text
 			sql.append(", ?"); // category
@@ -35,11 +35,12 @@ public class PostDao {
 
 			ps = connection.prepareStatement(sql.toString());
 
-			ps.setInt(1, post.getUser_id());
-			ps.setString(2,  post.getSubject());
-			ps.setString(3, post.getText());
+			ps.setInt(1 , post.getUser_id());
+			ps.setString(2 , post.getSubject());
+			ps.setString(3 , post.getText());
 			ps.setString(4 , post.getCategory());
 
+			System.out.println(toString());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);

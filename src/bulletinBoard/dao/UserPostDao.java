@@ -15,21 +15,16 @@ import bulletinBoard.exception.SQLRuntimeException;
 
 public class UserPostDao {
 
-	public List<UserPost> getUserPosts(Connection connection,Integer user_id) {
+	public List<UserPost> getUserPosts(Connection connection) {
 
 		PreparedStatement ps = null;
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM user_posts ");
-			if (user_id != null) {
-				sql.append("WHERE user_id = ?");
-			}
+			sql.append("ORDER BY insert_date DESC");
 
 			ps = connection.prepareStatement(sql.toString());
 
-			if (user_id != null) {
-				ps.setInt(1, user_id);
-			}
 
 			ResultSet rs = ps.executeQuery();
 			List<UserPost> ret = toUserPostList(rs);

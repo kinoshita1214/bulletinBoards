@@ -73,8 +73,8 @@ public class SettingsServlet extends HttpServlet {
 		editUser.setLogin_id (request.getParameter ("login_id"));
 		editUser.setName (request.getParameter ("name"));
 		editUser.setPassword(request.getParameter("password"));
-		editUser.setBranch_name (request.getParameter ("Branch_name"));
-		editUser.setDepartment_name (request.getParameter("department_name"));
+		editUser.setBranch_id (Integer.parseInt(request.getParameter("branch_id")));
+		editUser.setDepartment_id (Integer.parseInt(request.getParameter("department_id")));
 		return editUser;
 	}
 

@@ -31,17 +31,17 @@
 	<label for = "password">パスワード</label><br />
 	<input name = "password" id = "password" /><br />
 
-	<label for = "branch.name">支店名</label><br />
-	<select name = "branches">
-		<c:forEach var = "management" items = "${ managements }">
-			<option value = "${ management.branch_name }"><c:out value = "${ management.branch_name }" /></option>
+	<label for = "branch_id">支店名</label><br />
+	<select name = "branch_id">
+		<c:forEach var = "branch" items = "${ branch }">
+			<option value = "${ branch.id }"> ${ branch.name }</option>
 		</c:forEach>
 	</select><br />
 
-	<label for = "department.name">部署・役所名</label><br />
-	<select name = "departments">
-		<c:forEach var = "management" items = "${ managements }">
-			<option value = "${ management.department_name  }"><c:out value = "${ management.department_name }" /></option>
+	<label for = "department_id">部署・役所名</label><br />
+	<select name = "department_id">
+		<c:forEach var = "department" items = "${ department }">
+			<option value = "${ department.id }"> ${ department.name }</option>
 		</c:forEach>
 	</select><br />
 	<input type = "submit" value = "登録" /><br />
