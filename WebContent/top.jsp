@@ -49,13 +49,17 @@
 		<div class="comments">
 			<c:forEach items="${ comments }" var="comment">
 				<c:if test = "${ comment.post_id == post.id }">
-					<div class="login_id-name">
-						<span class="login_id"></span>
-						<span class="name"><c:out value = "${comment.name}" /></span>
-						<span class="post_id"></span>
-					</div>
-					<div class = "text"><c:out value = "${comment.text}" /></div>
-					<div class = "date"><fmt:formatDate value = "${comment.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+					<form action = "delete" method = "post">
+						<div class="login_id-name">
+							<span class="login_id"></span>
+							<span class="name"><c:out value = "${comment.name}" /></span>
+							<span class="post_id"></span>
+						</div>
+						<div class = "text"><c:out value = "${comment.text}" /></div>
+						<div class = "date"><fmt:formatDate value = "${comment.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+						<input type="hidden" name = "comment.id" value = "${ comment.id }" />
+						<input type = "submit" value = "削除">
+					</form>
 				</c:if>
 			</c:forEach>
 		</div>

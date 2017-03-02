@@ -13,8 +13,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
+import bulletinBoard.beans.Branch;
+import bulletinBoard.beans.Department;
 import bulletinBoard.beans.User;
 import bulletinBoard.exception.NoRowsUpdatedRuntimeException;
+import bulletinBoard.service.BranchService;
 import bulletinBoard.service.UserService;
 
 @WebServlet(urlPatterns = { "/settings" })
@@ -24,6 +27,12 @@ public class SettingsServlet extends HttpServlet {
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    	List<Branch> branch = new BranchService().getBranch();
+		request.setAttribute("branch" , branch);
+		List<Department> department = new DepartmentService().getDepartment();
+		request.setAttribute("department" , department);
+		request.getRequestDispatcher("signup.jsp").forward(request , response);
+
     	HttpSession session =request.getSession();
     	User loginUser = (User) session.getAttribute ("loginUser");
 
@@ -32,11 +41,15 @@ public class SettingsServlet extends HttpServlet {
     		session.setAttribute ("editUser", editUser);
     	}
 
-    	request.getRequestDispatcher ("setting.jsp").forward (request , response);
+    	request.getRequestDispatcher ("settings.jsp").forward (request , response);
 	}
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    	List<Branch> branch = new BranchService().getBranch();
+		request.setAttribute("branch" , branch);
+		List<Department> department = new DepartmentService().getDepartment();
+		request.setAttribute("department" , department);
+		request.getRequestDispatcher("signup.jsp").forward(request , response);
     	List<String> messages = new ArrayList<String>();
 
     	HttpSession session = request.getSession();
@@ -61,7 +74,7 @@ public class SettingsServlet extends HttpServlet {
     		response.sendRedirect("./");
     	} else {
     		session.setAttribute("errorMessage" , messages);
-    		response.sendRedirect ("setting");
+    		response.sendRedirect ("settings");
     	}
 	}
 
@@ -72,7 +85,7 @@ public class SettingsServlet extends HttpServlet {
 
 		editUser.setLogin_id (request.getParameter ("login_id"));
 		editUser.setName (request.getParameter ("name"));
-		editUser.setPassword(request.getParameter("password"));
+		editUser.setPassword (request.getParameter("password"));
 		editUser.setBranch_id (Integer.parseInt(request.getParameter("branch_id")));
 		editUser.setDepartment_id (Integer.parseInt(request.getParameter("department_id")));
 		return editUser;

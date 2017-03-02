@@ -33,15 +33,15 @@
 	<label for = "password">パスワード</label>
 	<input name = "password" value = "${ edirUser.password }" /><br />
 
-	<label for = "branch.name">支店名</label><br />
-	<select name = "branches">
+	<label for = "branch_id">支店名</label><br />
+	<select name = "branch_id">
 		<c:forEach var = "branch" items = "${ branches }">
 			<option value = "${ branch.id }"><c:out value = "${ branch.name }" /></option>
 		</c:forEach>
 	</select><br />
 
-	<label for = "department.name">部署・役所名</label><br />
-	<select name = "departments">
+	<label for = "department_id">部署・役所名</label><br />
+	<select name = "department_id">
 		<c:forEach var = "department" items = "${ departments }">
 			<option value = "${ department.id }"><c:out value = "${ department.name }" /></option>
 		</c:forEach>

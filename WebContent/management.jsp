@@ -21,13 +21,16 @@
 		<div class = "management">
 			<div class = "users">
 				<div class="login_id-name">
-				<table border = 1>
-					<tr><td><span class="login_id"><c:out value="${management.login_id}" /></span></td>
-					<td><span class="name"><c:out value="${management.name}" /></span></td>
-					<td><span class="branch_name"><c:out value="${management.branch_name}" /></span></td>
-					<td><span class="department_name"><c:out value="${management.department_name}" /></span></td>
-					<td><input type = "submit" value = "編集"></td>
-				</table>
+					<form action ="settings" method = "post">
+						<table border = 1>
+							<tr><td><span class="login_id"><c:out value="${management.login_id}" /></span></td>
+							<td><span class = "name"><c:out value="${management.name}" /></span></td>
+							<td><span class = "branch_name"><c:out value="${management.branch_name}" /></span></td>
+							<td><span class = "department_name"><c:out value="${management.department_name}" /></span></td>
+							<td><input type = "submit" value = "編集"></td>
+							<td><input type = "submit" value = "停止"></td></tr>
+						</table>
+					</form>
 				</div>
 			</div>
 		</div>
