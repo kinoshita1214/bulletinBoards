@@ -44,16 +44,20 @@ public class UserManagementDao {
 		List<UserManagement> ret = new ArrayList<UserManagement>();
 		try {
 			while (rs.next()) {
+				int id = rs.getInt("id");
 				String login_id = rs.getString("login_id");
 				String name = rs.getString("name");
 				String branch_name = rs.getString("branch_name");
 				String department_name = rs.getString("department_name");
+				int is_stoped = rs.getInt("is_stoped");
 
 				UserManagement management = new UserManagement();
+				management.setId(id);
 				management.setLogin_id(login_id);
 				management.setName(name);
 				management.setBranch_name(branch_name);
 				management.setDepartment_name(department_name);
+				management.setIs_stoped(is_stoped);
 
 				ret.add(management);
 			}

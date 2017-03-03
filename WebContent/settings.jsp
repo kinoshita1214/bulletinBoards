@@ -25,28 +25,27 @@
 
 <form action = "settings" method = "post" enctype = "multipart/form-data"><br />
 	<label for = "login_id">ログインID</label>
-	<input name = "login_id" value = "${ edirUser.login_id }" /><br />
+	<input name = "login_id" value = "${ editUser.login_id }"  /><br />
 
-		<label for = "name">ユーザー名</label>
-	<input name = "name" value = "${ edirUser.name }" /><br />
+	<label for = "name">ユーザー名</label>
+	<input name = "name" value = "${ editUser.name }" /><br />
 
 	<label for = "password">パスワード</label>
-	<input name = "password" value = "${ edirUser.password }" /><br />
+	<input name = "password" id = "password" /><br />
 
 	<label for = "branch_id">支店名</label><br />
 	<select name = "branch_id">
-		<c:forEach var = "branch" items = "${ branches }">
-			<option value = "${ branch.id }"><c:out value = "${ branch.name }" /></option>
+		<c:forEach var = "branch" items = "${ branch }">
+			<option value = "${ branch.id }"> ${ branch.name }</option>
 		</c:forEach>
 	</select><br />
 
 	<label for = "department_id">部署・役所名</label><br />
 	<select name = "department_id">
-		<c:forEach var = "department" items = "${ departments }">
-			<option value = "${ department.id }"><c:out value = "${ department.name }" /></option>
+		<c:forEach var = "department" items = "${ department }">
+			<option value = "${ department.id }"> ${ department.name }</option>
 		</c:forEach>
 	</select><br />
-
 	<input type = "submit" value = "登録" /><br />
 	<a href = "./">戻る</a>
 </form>

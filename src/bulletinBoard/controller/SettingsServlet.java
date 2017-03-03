@@ -18,6 +18,7 @@ import bulletinBoard.beans.Department;
 import bulletinBoard.beans.User;
 import bulletinBoard.exception.NoRowsUpdatedRuntimeException;
 import bulletinBoard.service.BranchService;
+import bulletinBoard.service.DepartmentService;
 import bulletinBoard.service.UserService;
 
 @WebServlet(urlPatterns = { "/settings" })
@@ -27,33 +28,24 @@ public class SettingsServlet extends HttpServlet {
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		int id = Integer.parseInt(request.getParameter("management.id"));
+
+    	User editUser = new UserService().getUser(id);
+    	request.setAttribute("editUser" , editUser);
+
     	List<Branch> branch = new BranchService().getBranch();
 		request.setAttribute("branch" , branch);
 		List<Department> department = new DepartmentService().getDepartment();
 		request.setAttribute("department" , department);
-		request.getRequestDispatcher("signup.jsp").forward(request , response);
-
-    	HttpSession session =request.getSession();
-    	User loginUser = (User) session.getAttribute ("loginUser");
-
-    	if (session.getAttribute ("editUser") == null) {
-    		User editUser = new UserService().getUser(loginUser.getId());
-    		session.setAttribute ("editUser", editUser);
-    	}
-
     	request.getRequestDispatcher ("settings.jsp").forward (request , response);
-	}
+    }
+
     @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	List<Branch> branch = new BranchService().getBranch();
-		request.setAttribute("branch" , branch);
-		List<Department> department = new DepartmentService().getDepartment();
-		request.setAttribute("department" , department);
-		request.getRequestDispatcher("signup.jsp").forward(request , response);
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
     	List<String> messages = new ArrayList<String>();
-
     	HttpSession session = request.getSession();
-
     	User editUser = getEditUser (request);
     	session.setAttribute("editUser" , editUser);
 
@@ -82,7 +74,6 @@ public class SettingsServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		User editUser = (User) session.getAttribute("editUser");
-
 		editUser.setLogin_id (request.getParameter ("login_id"));
 		editUser.setName (request.getParameter ("name"));
 		editUser.setPassword (request.getParameter("password"));

@@ -17,6 +17,7 @@ import bulletinBoard.beans.Branch;
 import bulletinBoard.beans.Department;
 import bulletinBoard.beans.User;
 import bulletinBoard.service.BranchService;
+import bulletinBoard.service.DepartmentService;
 import bulletinBoard.service.UserService;
 
 @WebServlet(urlPatterns = { "/signup" })
@@ -43,13 +44,12 @@ public class SignUpServlet extends HttpServlet {
 			user.setBranch_id(Integer.parseInt(request.getParameter("branch_id")));
 			user.setDepartment_id(Integer.parseInt(request.getParameter("department_id")));
 
-			System.out.println(user.toString());
 			new UserService().register(user);
 
 			response.sendRedirect("./");
 		} else {
 			session.setAttribute("errorMessages" , managements);
-			response.sendRedirect("/signup");
+			response.sendRedirect("signup");
 		}
 	}
 

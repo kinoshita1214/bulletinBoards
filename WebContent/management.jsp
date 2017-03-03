@@ -24,30 +24,33 @@
 				<div class="login_id-name">
 					<table border = 1>
 						<tr>
-								<td><span class="login_id"><c:out value="${management.login_id}" /></span></td>
-								<td><span class = "name"><c:out value="${management.name}" /></span></td>
-								<td><span class = "branch_name"><c:out value="${management.branch_name}" /></span></td>
-								<td><span class = "department_name"><c:out value="${management.department_name}" /></span></td>
-								<td>
-									<form action ="settings" method = "get">
-										<input type = "submit" value = "編集">
-									</form>
-								</td>
-								<td>
+							<td><span class="login_id"><c:out value="${management.login_id}" /></span></td>
+							<td><span class = "name"><c:out value="${management.name}" /></span></td>
+							<td><span class = "branch_name"><c:out value="${management.branch_name}" /></span></td>
+							<td><span class = "department_name"><c:out value="${management.department_name}" /></span></td>
+							<td>
+								<form action ="settings" method = "get">
+									<input type = "hidden" name = "management.id" value = "${ management.id }" />
+									<input type = "submit" value = "編集">
+								</form>
+							</td>
+							<td>
+								<c:if test = "${ management.is_stoped == 0 }">
 									<form action = "stop" method = "post">
-										<c:if test = "${ management.is_stoped == 0 }">
-											<input type = "hidden" name = "management.id" value = "${ management.id }" />
-											<input type = "hidden" name = "is_stoped" value = 1 />
-											<input type = "submit" value = "停止"/>
-										</c:if>
-
-										<c:if test = "${ management.is_stoped ==1 }">
-											<input type = "hidden" name = "management.id" value = "${ management.id }" />
-											<input type = "hidden" name = "is_stoped" value = 0 />
-											<input type = "submit" value = "復活 /">
-										</c:if>
+										<input type = "hidden" name = "management.id" value = "${ management.id }" />
+										<input type = "hidden" name = "is_stoped" value = 1 />
+										<input type = "submit" value = "停止"/>
 									</form>
-								</td>
+								</c:if>
+
+								<c:if test = "${ management.is_stoped ==  1 }">
+									<form action = "stop" method = "post">
+										<input type = "hidden" name = "management.id" value = "${ management.id }" />
+										<input type = "hidden" name = "is_stoped" value = 0 />
+										<input type = "submit" value = "復活 "/>
+									</form>
+								</c:if>
+							</td>
 						<tr>
 					</table>
 				</div>

@@ -1,4 +1,4 @@
-package bulletinBoard.controller;
+package bulletinBoard.service;
 
 import static bulletinBoard.utils.CloseableUtil.*;
 import static bulletinBoard.utils.DBUtil.*;

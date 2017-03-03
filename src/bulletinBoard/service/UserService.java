@@ -6,7 +6,6 @@ import static bulletinBoard.utils.DBUtil.*;
 import java.sql.Connection;
 
 import bulletinBoard.beans.User;
-import bulletinBoard.dao.CommentDao;
 import bulletinBoard.dao.UserDao;
 import bulletinBoard.utils.CipherUtil;
 public class UserService {
@@ -58,15 +57,14 @@ public class UserService {
 		}
 	}
 
-	public User getUser (int user_id) {
+	public User getUser (int id) {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
 
 			UserDao userDao = new UserDao();
-			User user = userDao.getUser (connection , user_id);
-
+			User user = userDao.getUser (connection , id);
 			commit (connection);
 
 			return user;
@@ -85,8 +83,8 @@ public class UserService {
 		try {
 			connection = getConnection();
 
-			CommentDao commentDao = new CommentDao();
-			commentDao.stop(connection, user);
+			UserDao userDao = new UserDao();
+			userDao.stop(connection, user);
 
 			commit(connection);
 
@@ -101,5 +99,4 @@ public class UserService {
 		}
 	}
 
-	}
 }

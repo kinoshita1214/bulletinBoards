@@ -97,8 +97,6 @@ public class UserDao {
 			ps.setString(4, user.getName());
 			ps.setString(5, user.getPassword());
 
-			System.out.println(ps.toString());
-
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);
@@ -112,21 +110,24 @@ public class UserDao {
 		PreparedStatement ps = null;
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append("UPDATE user SET");
+			sql.append("UPDATE users SET");
 			sql.append("  login_id = ?");
-			sql.append(", branch_id = ?");
-			sql.append(", department_id = ?");
 			sql.append(", name = ?");
 			sql.append(", password = ?");
-
+			sql.append(", branch_id = ?");
+			sql.append(", department_id = ?");
+			sql.append(" WHERE");
+			sql.append(" id = ?");
+			System.out.println(sql.toString());
 			ps = connection.prepareStatement(sql.toString());
 
 			ps.setString(1, user.getLogin_id());
-			ps.setInt(2, user.getBranch_id());
-			ps.setInt(3, user.getDepartment_id());
-			ps.setString(4, user.getName());
-			ps.setString(5, user.getPassword());
-
+			ps.setString(2, user.getName());
+			ps.setString(3, user.getPassword());
+			ps.setInt(4, user.getBranch_id());
+			ps.setInt(5, user.getDepartment_id());
+			ps.setInt(6 , user.getId());
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);
 		} finally {
@@ -135,14 +136,14 @@ public class UserDao {
 
 	}
 
-	public User getUser(Connection connection, int uId) {
+	public User getUser(Connection connection, int id) {
 
 		PreparedStatement ps = null;
 		try {
 			String sql = "SELECT * FROM users WHERE id = ?";
 
 			ps = connection.prepareStatement(sql);
-			ps.setInt(1, uId);
+			ps.setInt(1, id);
 
 			ResultSet rs = ps.executeQuery();
 			List<User> userList = toUserList(rs);
@@ -166,12 +167,19 @@ public class UserDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE users SET");
-			sql.append("is_stoped = ?");
+			sql.append(" is_stoped = ?");
+			sql.append(" WHERE id = ?");
 
 			ps = connection.prepareStatement(sql.toString());
 
 			ps.setInt (1 , user.getIs_stoped());
-
+			ps.setInt (2 , user.getId());
+			System.out.println(ps.toString());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
 		}
 	}
 
