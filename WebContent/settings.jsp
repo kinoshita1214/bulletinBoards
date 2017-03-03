@@ -23,7 +23,8 @@
 	<c:remove var = "errorMessages" scope = "session" />
 </c:if>
 
-<form action = "settings" method = "post" enctype = "multipart/form-data"><br />
+<form action = "settings" method = "post"><br />
+	<input type = "hidden" name = "id" value = "${ editUser.id }" />
 	<label for = "login_id">ログインID</label>
 	<input name = "login_id" value = "${ editUser.login_id }"  /><br />
 
@@ -36,7 +37,7 @@
 	<label for = "branch_id">支店名</label><br />
 	<select name = "branch_id">
 		<c:forEach var = "branch" items = "${ branch }">
-			<option value = "${ branch.id }"> ${ branch.name }</option>
+			<option value = "${ branch.id }" > ${ branch.name }</option>
 		</c:forEach>
 	</select><br />
 

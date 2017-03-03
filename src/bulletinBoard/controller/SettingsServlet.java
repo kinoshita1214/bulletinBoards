@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -45,35 +44,29 @@ public class SettingsServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
     	List<String> messages = new ArrayList<String>();
-    	HttpSession session = request.getSession();
-    	User editUser = getEditUser (request);
-    	session.setAttribute("editUser" , editUser);
+    	User editUser = getEditUser(request);
 
     	if (isValid (request , messages) ==true) {
 
     		try {
     			new UserService().update (editUser);
     		} catch (NoRowsUpdatedRuntimeException e) {
-    			session.removeAttribute ("editUser");
     			messages.add ("他の人によって更新されています。最新のデータを表示しました。データを確認してください。");
-    			session.setAttribute ("errorMessages" , messages);
-    			response.sendRedirect ("settings");
+    			request.setAttribute ("errorMessages" , messages);
+    			request.getRequestDispatcher ("settings.jsp").forward (request , response);
+    			return;
     		}
-
-    		session.setAttribute("loginUser" , editUser);
-    		session.removeAttribute ("editUser");
-
-    		response.sendRedirect("./");
+    		response.sendRedirect("management");
     	} else {
-    		session.setAttribute("errorMessage" , messages);
-    		response.sendRedirect ("settings");
+    		request.setAttribute("errorMessage" , messages);
+    		request.getRequestDispatcher ("settings.jsp").forward (request , response);
     	}
 	}
 
 	private User getEditUser(HttpServletRequest request) throws IOException , ServletException {
 
-		HttpSession session = request.getSession();
-		User editUser = (User) session.getAttribute("editUser");
+		User editUser = new User();
+		editUser.setId(Integer.parseInt(request.getParameter("id")));
 		editUser.setLogin_id (request.getParameter ("login_id"));
 		editUser.setName (request.getParameter ("name"));
 		editUser.setPassword (request.getParameter("password"));

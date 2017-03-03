@@ -105,7 +105,7 @@ public class UserDao {
 		}
 	}
 
-	public void update(Connection connection, User user) {
+	public void update(Connection connection, User user ) {
 
 		PreparedStatement ps = null;
 		try {
@@ -118,7 +118,6 @@ public class UserDao {
 			sql.append(", department_id = ?");
 			sql.append(" WHERE");
 			sql.append(" id = ?");
-			System.out.println(sql.toString());
 			ps = connection.prepareStatement(sql.toString());
 
 			ps.setString(1, user.getLogin_id());
