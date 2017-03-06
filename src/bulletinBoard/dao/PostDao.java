@@ -40,7 +40,7 @@ public class PostDao {
 			ps.setString(3 , post.getText());
 			ps.setString(4 , post.getCategory());
 
-			System.out.println(toString());
+
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);

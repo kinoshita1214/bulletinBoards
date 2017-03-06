@@ -34,6 +34,9 @@
 	<label for = "password">パスワード</label>
 	<input name = "password" id = "password" /><br />
 
+	<label for = "password">パスワード(確認用)</label>
+	<input name = "check_password" id = "password" /><br />
+
 	<label for = "branch_id">支店名</label><br />
 	<select name = "branch_id">
 		<c:forEach var = "branch" items = "${ branch }">

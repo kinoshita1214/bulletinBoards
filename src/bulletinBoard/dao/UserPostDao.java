@@ -10,22 +10,27 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import bulletinBoard.beans.Post;
 import bulletinBoard.beans.UserPost;
 import bulletinBoard.exception.SQLRuntimeException;
 
 public class UserPostDao {
 
-	public List<UserPost> getUserPosts(Connection connection) {
+	public List<UserPost> getUserPosts(Connection connection ,Post category) {
 
 		PreparedStatement ps = null;
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM user_posts ");
-			sql.append("ORDER BY insert_date DESC");
-
+			if (category.getCategory() != null) {
+				sql.append(" WHERE category = ?");
+			}
+			sql.append(" ORDER BY insert_date DESC");
 			ps = connection.prepareStatement(sql.toString());
-
-
+			if (category.getCategory() != null){
+				ps.setString(1 , category.getCategory());
+			}
+			System.out.println(ps.toString());
 			ResultSet rs = ps.executeQuery();
 			List<UserPost> ret = toUserPostList(rs);
 			return ret;
@@ -69,4 +74,43 @@ public class UserPostDao {
 		}
 	}
 
+	public List<UserPost> getCategory(Connection connection) {
+
+		PreparedStatement ps = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT DISTINCT category FROM user_posts ");
+			//sql.append("ORDER BY insert_date DESC");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ResultSet rs = ps.executeQuery();
+			List<UserPost> ret = toCategoryList(rs);
+			return ret;
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
+	private List<UserPost> toCategoryList(ResultSet rs)
+			throws SQLException {
+
+		List<UserPost> ret = new ArrayList<UserPost>();
+		try {
+			while (rs.next()) {
+				String category = rs.getString("category");
+
+				UserPost categories = new UserPost();
+
+				categories.setCategory(category);
+
+				ret.add(categories);
+			}
+			return ret;
+		} finally {
+			close(rs);
+		}
+	}
 }

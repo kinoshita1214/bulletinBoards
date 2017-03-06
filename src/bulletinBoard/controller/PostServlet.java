@@ -27,7 +27,7 @@ public class PostServlet extends HttpServlet {
 		} else {
 			isShowPostForm = false;
 		}
-		List<UserPost> posts = new PostService().getPost(null);
+		List<UserPost> posts = new PostService().getPost(null, null);
 		request.setAttribute ("posts" , posts);
 		request.setAttribute("isShowPostForm" , isShowPostForm);
 

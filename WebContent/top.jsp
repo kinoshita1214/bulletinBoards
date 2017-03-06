@@ -31,8 +31,18 @@
 
 	</div>
 </c:if>
-
-
+<br />
+<div class = "category"></div>
+	<form action = "./" method = get >
+		<label for = "category">カテゴリー検索</label><br />
+			<select  name = "category">
+				<c:forEach var = "categories" items = "${ categories }">
+					<option value = "${ categories.category }" > ${ categories.category }</option>
+				</c:forEach>
+			</select>
+			<input type = "submit" value = "検索">
+	</form>
+</div>
 <div class="posts">
 	<c:forEach items="${ posts }" var="post">
 		<div class="login_id-name">
@@ -77,6 +87,5 @@
 </div>
 
 <div class="copyright">Copyright(c)keisuke kinoshita</div>
-</div>
 </body>
 </html>
