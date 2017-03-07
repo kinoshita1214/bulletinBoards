@@ -132,8 +132,6 @@ public class UserPostDao {
 
 			ps = connection.prepareStatement(sql.toString());
 
-			System.out.println(ps.toString());
-
 			ResultSet rs = ps.executeQuery();
 			List<UserPost> ret = toUserPostList(rs);
 			return ret;
