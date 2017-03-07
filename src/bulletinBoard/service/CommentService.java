@@ -35,7 +35,7 @@ public class CommentService {
 		}
 	}
 
-	public List<UserComment> getComment(Integer use_id ) {
+	public List<UserComment> getComment() {
 
 		Connection connection = null;
 		try {

@@ -16,22 +16,31 @@ import bulletinBoard.exception.SQLRuntimeException;
 
 public class UserPostDao {
 
-	public List<UserPost> getUserPosts(Connection connection ,Post category) {
+	public List<UserPost> getUserPosts(Connection connection , String start , String end , Post category) {
 
 		PreparedStatement ps = null;
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM user_posts ");
+			sql.append("WHERE insert_date >= ? AND insert_date < ?");
+
 			if (category.getCategory() != null) {
-				sql.append(" WHERE category = ?");
+				sql.append(" AND category = ?");
 			}
+
 			sql.append(" ORDER BY insert_date DESC");
 			ps = connection.prepareStatement(sql.toString());
+			ps.setString(1 , start);
+			ps.setString(2 , end);
 			if (category.getCategory() != null){
-				ps.setString(1 , category.getCategory());
+
+				ps.setString(3 , category.getCategory());
 			}
+
 			System.out.println(ps.toString());
 			ResultSet rs = ps.executeQuery();
+
+
 			List<UserPost> ret = toUserPostList(rs);
 			return ret;
 		} catch (SQLException e) {
@@ -111,6 +120,27 @@ public class UserPostDao {
 			return ret;
 		} finally {
 			close(rs);
+		}
+	}
+
+	public List<UserPost> getDate(Connection connection) {
+		PreparedStatement ps = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * FROM user_posts");
+			sql.append(" ORDER BY insert_date  LIMIT 1");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			System.out.println(ps.toString());
+
+			ResultSet rs = ps.executeQuery();
+			List<UserPost> ret = toUserPostList(rs);
+			return ret;
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
 		}
 	}
 }

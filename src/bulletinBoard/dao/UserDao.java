@@ -173,7 +173,7 @@ public class UserDao {
 
 			ps.setInt (1 , user.getIs_stoped());
 			ps.setInt (2 , user.getId());
-			System.out.println(ps.toString());
+
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);

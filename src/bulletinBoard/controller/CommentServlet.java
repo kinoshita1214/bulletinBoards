@@ -26,7 +26,7 @@ public class CommentServlet extends HttpServlet {
 		} else {
 			isShowCommentForm = false;
 		}
-		List<UserComment> comments = new CommentService().getComment(null);
+		List<UserComment> comments = new CommentService().getComment();
 		request.setAttribute ("comments" , comments);
 		request.setAttribute("isShowCommentForm" , isShowCommentForm);
 

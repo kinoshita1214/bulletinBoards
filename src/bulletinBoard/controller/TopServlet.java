@@ -1,6 +1,8 @@
 package bulletinBoard.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -26,41 +28,37 @@ public class TopServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		String user_id = request.getParameter("user_id");
-
+		List<UserPost> dates;
+		dates = new PostService().getDate();
+		String start =dates.get(0).getInsertDate().toString();
+		SimpleDateFormat e = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String end = e.format(new Date());
 		Post category = new Post();
 		category.setCategory(request.getParameter("category"));
+
+		start = request.getParameter("start");
+		end = request.getParameter("end");
+		System.out.println(start);
+		System.out.println(end);
 
 		User user;
 		List<UserPost> posts;
 		List<UserPost> categories;
 		List<UserComment> comments;
-		boolean isShowPostForm;
-		boolean isShowCommentForm;
-
 
 		if (user_id == null) {
 			user = (User) request.getSession().getAttribute("loginUser");
-			posts = new PostService().getPost(null, category);
-			categories = new PostService().getCategory(null);
+			posts = new PostService().getPost(start , end , category);
+			categories = new PostService().getCategory();
+			comments = new CommentService().getComment();
 
-			comments = new CommentService().getComment(null);
-			if (user != null) {
-				isShowPostForm = true;
-				isShowCommentForm = true;
-
-			} else {
-				isShowPostForm = false;
-				isShowCommentForm = false;
-
-			}
 		} else {
 			int uId = Integer.parseInt(user_id);
 			user = new UserService().getUser(uId);
-			posts = new PostService().getPost(uId, category);
-			categories = new PostService().getCategory(uId);
-			comments = new CommentService().getComment(uId);
-			isShowPostForm = false;
-			isShowCommentForm = false;
+			posts = new PostService().getPost(start , end , category);
+			categories = new PostService().getCategory();
+			comments = new CommentService().getComment();
+
 		}
 
 
@@ -69,8 +67,7 @@ public class TopServlet extends HttpServlet {
 		request.setAttribute("categories", categories);
 		request.setAttribute("category", category);
 		request.setAttribute("comments", comments);
-		request.setAttribute("isShowPostForm", isShowPostForm);
-		request.setAttribute("isShowCommentForm", isShowCommentForm);
+
 
 		request.getRequestDispatcher("/top.jsp").forward(request, response);
 	}

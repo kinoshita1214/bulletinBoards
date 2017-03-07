@@ -9,6 +9,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>掲示板</title>
 	<link href="./css/style.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="calen_link/calendar.css">
 </head>
 <body>
 <div class="main-contents">
@@ -32,6 +33,15 @@
 	</div>
 </c:if>
 <br />
+<div class = "date">
+	<form action = "./" method = get>
+		<input type="date" name="start">
+
+		<input type="date" name="end">
+		<input type = "submit" value = "検索">
+	</form>
+</div>
+
 <div class = "category"></div>
 	<form action = "./" method = get >
 		<label for = "category">カテゴリー検索</label><br />

@@ -36,14 +36,14 @@ public class PostService {
 		}
 	}
 
-	public List<UserPost> getPost(Integer use_id , Post category) {
+	public List<UserPost> getPost(String start, String end , Post category) {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
 
 			UserPostDao postDao = new UserPostDao();
-			List<UserPost> ret = postDao.getUserPosts(connection , category);
+			List<UserPost> ret = postDao.getUserPosts(connection , start , end , category);
 
 			commit(connection);
 
@@ -59,7 +59,7 @@ public class PostService {
 		}
 	}
 
-	public List<UserPost> getCategory(Integer use_id) {
+	public List<UserPost> getCategory() {
 
 		Connection connection = null;
 		try {
@@ -81,4 +81,25 @@ public class PostService {
 		}
 	}
 
+	public List<UserPost> getDate() {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+
+			UserPostDao postDao = new UserPostDao();
+			List<UserPost> ret = postDao.getDate(connection);
+			commit(connection);
+
+			return ret;
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
 }
