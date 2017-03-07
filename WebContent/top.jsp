@@ -17,7 +17,7 @@
 <div class="header">
 
 	<c:if test="${ not empty loginUser }">
-		<a href="post">新規投稿画面</a>
+		<a href="newPost">新規投稿画面</a>
 		<a href="management">ユーザー管理画面</a>
 		<a href="logout">ログアウト</a>
 	</c:if>
@@ -35,9 +35,9 @@
 <br />
 <div class = "date">
 	<form action = "./" method = get>
-		<input type="date" name="start">
+		<input type="date" name="start" value = "${ start }">
 
-		<input type="date" name="end">
+		<input type="date" name="end" value = "${ end }">
 		<input type = "submit" value = "検索">
 	</form>
 </div>

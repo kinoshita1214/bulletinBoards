@@ -32,22 +32,33 @@
 	<input name = "name" value = "${ editUser.name }" /><br />
 
 	<label for = "password">パスワード</label>
-	<input name = "password" id = "password" /><br />
+	<input name = "password" type = "password" id = "password" /><br />
 
 	<label for = "password">パスワード(確認用)</label>
-	<input name = "check_password" id = "password" /><br />
+	<input name = "check_password" type = "password" id = "password" /><br />
 
 	<label for = "branch_id">支店名</label><br />
 	<select name = "branch_id">
 		<c:forEach var = "branch" items = "${ branch }">
-			<option value = "${ branch.id }" > ${ branch.name }</option>
+			<c:if test = "${ branch.id == editUser.branch_id }">
+				<option value = "${ branch.id }" selected = "${ branch.name }" > ${ branch.name }</option>
+			</c:if>
+			<c:if test = "${ branch.id != editUser.branch_id }">
+				<option value = "${ branch.id }"  > ${ branch.name }</option>
+			</c:if>
+
 		</c:forEach>
 	</select><br />
 
 	<label for = "department_id">部署・役所名</label><br />
 	<select name = "department_id">
 		<c:forEach var = "department" items = "${ department }">
-			<option value = "${ department.id }"> ${ department.name }</option>
+			<c:if test = "${ department.id == editUser.department_id }">
+				<option value = "${ department.id }" selected = "${ department.name }" > ${ department.name }</option>
+			</c:if>
+			<c:if test = "${ department.id != editUser.department_id }">
+				<option value = "${ department.id }"  > ${ department.name }</option>
+			</c:if>
 		</c:forEach>
 	</select><br />
 	<input type = "submit" value = "登録" /><br />

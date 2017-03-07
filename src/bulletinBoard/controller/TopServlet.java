@@ -52,7 +52,7 @@ public class TopServlet extends HttpServlet {
 		}
 
 		user = (User) request.getSession().getAttribute("loginUser");
-		posts = new PostService().getPost(start , end , category);
+		posts = new PostService().getPosts(start , end , category);
 		categories = new PostService().getCategory();
 		comments = new CommentService().getComment();
 
@@ -61,7 +61,8 @@ public class TopServlet extends HttpServlet {
 		request.setAttribute("categories", categories);
 		request.setAttribute("category", category);
 		request.setAttribute("comments", comments);
-
+		request.setAttribute("start", start);
+		request.setAttribute("end", end);
 
 		request.getRequestDispatcher("/top.jsp").forward(request, response);
 	}

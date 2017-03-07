@@ -12,18 +12,17 @@
 <body>
 <div class = "main-contents">
 <div class="form-area">
-	<c:if test="${ isShowPostForm }">
-		<form action="newPost" method="post">
-			新規投稿<br />
-			件名<br />
-			<input type = "text" name = "subject" size = "50" ><br />
-			投稿<br />
-			<textarea name="post" cols="100" rows="5" class="text-box"></textarea><br />
-			カテゴリ<br />
-			<input type = "text" name = "category" size = "50"><br />
-			<input type="submit" value="投稿"><input type = "reset" value = "リセット">（1000文字まで）
-		</form>
-	</c:if>
+	<form action="newPost" method="post">
+		新規投稿<br />
+		件名<br />
+		<input type = "text" name = "subject" size = "50" ><br />
+		投稿<br />
+		<textarea name="post" cols="100" rows="5" class="text-box"></textarea><br />
+		カテゴリ<br />
+		<input type = "text" name = "category" size = "50"><br />
+		<input type="submit" value="投稿"><input type = "reset" value = "リセット">（1000文字まで）
+	</form>
+
 </div>
 </div>
 </body>

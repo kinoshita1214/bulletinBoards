@@ -36,7 +36,7 @@ public class PostService {
 		}
 	}
 
-	public List<UserPost> getPost(String start, String end , Post category) {
+	public List<UserPost> getPosts(String start, String end , Post category) {
 
 		Connection connection = null;
 		try {

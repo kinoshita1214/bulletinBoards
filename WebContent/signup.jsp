@@ -29,7 +29,7 @@
 	<input name = "name" id = "name" /><br />
 
 	<label for = "password">パスワード</label><br />
-	<input name = "password"  id = "password" /><br />
+	<input name = "password" type = "password" id = "password" /><br />
 
 	<label for = "branch_id">支店名</label><br />
 	<select name = "branch_id">
