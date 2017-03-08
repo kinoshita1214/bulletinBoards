@@ -102,4 +102,25 @@ public class PostService {
 			close(connection);
 		}
 	}
+	public void delete(Post post) {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+
+			PostDao postDao = new PostDao();
+			postDao.delete(connection, post);
+
+			commit(connection);
+
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
 }

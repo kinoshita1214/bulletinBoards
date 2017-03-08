@@ -13,7 +13,7 @@ import bulletinBoard.beans.User;
 import bulletinBoard.exception.SQLRuntimeException;
 
 public class UserDao {
-	public User getUser(Connection connection , String login_id , String password) {
+	public User getUser(Connection connection , String login_id , String password ) {
 		PreparedStatement ps = null;
 
 		try {
@@ -175,6 +175,25 @@ public class UserDao {
 			ps.setInt (2 , user.getId());
 
 			ps.executeUpdate();
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
+	public void delete (Connection connection , User user) {
+		PreparedStatement ps = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("DELETE FROM users");
+			sql.append(" WHERE id = ?");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ps.setInt (1 , user.getId());
+
+			ps.execute();
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);
 		} finally {

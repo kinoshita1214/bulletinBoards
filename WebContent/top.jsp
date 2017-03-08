@@ -3,6 +3,7 @@
 <%@page isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,14 +11,39 @@
 	<title>掲示板</title>
 	<link href="./css/style.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="calen_link/calendar.css">
+	<script type="text/javascript">
+<!--
+
+function check(){
+
+	if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+
+		return true; // 「OK」時は送信を実行
+
+	}
+	else{ // 「キャンセル」時の処理
+
+		window.alert('キャンセルされました'); // 警告ダイアログを表示
+		return false; // 送信を中止
+
+	}
+
+}
+
+// -->
+</script>
 </head>
 <body>
 <div class="main-contents">
-
+<h2>ホーム画面</h2>
 <div class="header">
 
 	<c:if test="${ not empty loginUser }">
-		<a href="newPost">新規投稿画面</a>
+		<a href="newPost">
+			<input type="hidden" name = "branch_id" value = "${ user.branch_id }" />
+			<input type="hidden" name = "department_id" value = "${ user.department_id }" />
+			新規投稿画面
+		</a>
 		<a href="management">ユーザー管理画面</a>
 		<a href="logout">ログアウト</a>
 	</c:if>
@@ -32,7 +58,18 @@
 
 	</div>
 </c:if>
+
 <br />
+<c:if test = "${ not empty errorMessages }">
+	<div class = "errorMessages">
+		<ul>
+			<c:forEach items = "${ errorMessages }" var = "message" >
+				<li><c:out value = "${ message }" />
+			</c:forEach>
+		</ul>
+	</div>
+	<c:remove var = "errorMessages" scope = "session" />
+</c:if>
 <div class = "date">
 	<form action = "./" method = get>
 		<input type="date" name="start" value = "${ start }">
@@ -55,21 +92,26 @@
 </div>
 <div class="posts">
 	<c:forEach items="${ posts }" var="post">
-		<div class="login_id-name">
-			<span class="login_id"><c:out value = "${post.login_id}" /></span>
-			<span class="name"><c:out value = "${post.name}" /></span>
-		</div>
-		<div class = "subject">件名:<c:out value = "${ post.subject }" /></div>
-		本文:
-		<div class = "text"><c:out value = "${post.text}" /></div>
-		<div class = "category">カテゴリー:<c:out value = "${ post.category }" /></div>
-		<div class = "date"><fmt:formatDate value = "${post.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
-
+		<form action="deletePost" method="post" onSubmit="return check()">
+			<div class="login_id-name">
+				<span class="login_id"><c:out value = "${ post.login_id }" /></span>
+				<span class="name"><c:out value = "${ post.name }" /></span>
+			</div>
+			<div class = "subject">件名:<c:out value = "${ post.subject }" /></div>
+			本文:
+			<div class = "text"><c:out value = "${post.text}" /></div>
+			<div class = "category">カテゴリー:<c:out value = "${ post.category }" /></div>
+			<div class = "date"><fmt:formatDate value = "${ post.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+			<input type="hidden" name = "post.id" value = "${ post.id }" />
+			<c:if test = "${ post.user_id == user.id }">
+				<input type = "submit" value = "削除">
+			</c:if>
+		</form>
 		コメント<br />
 		<div class="comments">
 			<c:forEach items="${ comments }" var="comment">
 				<c:if test = "${ comment.post_id == post.id }">
-					<form action = "delete" method = "post">
+					<form action = "deleteComment" method = "post" onSubmit="return check()">
 						<div class="login_id-name">
 							<span class="login_id"></span>
 							<span class="name"><c:out value = "${comment.name}" /></span>
@@ -78,7 +120,9 @@
 						<div class = "text"><c:out value = "${comment.text}" /></div>
 						<div class = "date"><fmt:formatDate value = "${comment.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 						<input type="hidden" name = "comment.id" value = "${ comment.id }" />
-						<input type = "submit" value = "削除">
+						<c:if test = "${ comment.user_id == user.id }">
+							<input type = "submit" value = "削除">
+						</c:if>
 					</form>
 				</c:if>
 			</c:forEach>

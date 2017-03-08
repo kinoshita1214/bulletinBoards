@@ -11,6 +11,7 @@
 </head>
 <body>
 <div class = "main-contents">
+<h2>新規ユーザー登録画面</h2>
 <c:if test = "${ not empty errorMessage }">
 	<div class = "errorMessages">
 		<ul>
@@ -45,7 +46,7 @@
 		</c:forEach>
 	</select><br />
 	<input type = "submit" value = "登録" /><br />
-	<a href = "./">戻る</a>
+	<a href = "management">戻る</a>
 </form>
 </div>
 </body>

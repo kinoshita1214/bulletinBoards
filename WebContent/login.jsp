@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class = "main-contents">
-
+<h2>ログイン画面</h2>
 <c:if test = "${ not empty errorMessages }">
 	<div class = "errorMessages">
 		<ul>

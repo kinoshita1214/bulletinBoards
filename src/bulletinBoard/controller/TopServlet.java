@@ -33,6 +33,8 @@ public class TopServlet extends HttpServlet {
 		List<UserPost> categories;
 		List<UserComment> comments;
 		List<UserPost> dates;
+
+
 		dates = new PostService().getDate();
 		String start = dates.get(0).getInsertDate().toString();
 		SimpleDateFormat e = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -66,5 +68,4 @@ public class TopServlet extends HttpServlet {
 
 		request.getRequestDispatcher("/top.jsp").forward(request, response);
 	}
-
 }

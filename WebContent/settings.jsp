@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class = "main-contents">
-
+<h2>ユーザー編集画面</h2>
 <c:if test = "${ not empty errorMessages }">
 	<div class = "errorMessages">
 		<ul>
@@ -37,32 +37,35 @@
 	<label for = "password">パスワード(確認用)</label>
 	<input name = "check_password" type = "password" id = "password" /><br />
 
-	<label for = "branch_id">支店名</label><br />
-	<select name = "branch_id">
-		<c:forEach var = "branch" items = "${ branch }">
-			<c:if test = "${ branch.id == editUser.branch_id }">
-				<option value = "${ branch.id }" selected = "${ branch.name }" > ${ branch.name }</option>
-			</c:if>
-			<c:if test = "${ branch.id != editUser.branch_id }">
-				<option value = "${ branch.id }"  > ${ branch.name }</option>
-			</c:if>
+	<c:if test = "${ loginUser.branch_id != 1 }">
+		<label for = "branch_id">支店名</label><br />
+		<select name = "branch_id">
+			<c:forEach var = "branch" items = "${ branch }">
 
-		</c:forEach>
-	</select><br />
-
-	<label for = "department_id">部署・役所名</label><br />
-	<select name = "department_id">
-		<c:forEach var = "department" items = "${ department }">
-			<c:if test = "${ department.id == editUser.department_id }">
-				<option value = "${ department.id }" selected = "${ department.name }" > ${ department.name }</option>
-			</c:if>
-			<c:if test = "${ department.id != editUser.department_id }">
-				<option value = "${ department.id }"  > ${ department.name }</option>
-			</c:if>
-		</c:forEach>
-	</select><br />
+				<c:if test = "${ branch.id == editUser.branch_id }">
+					<option value = "${ branch.id }" selected = "${ branch.name }" > ${ branch.name }</option>
+				</c:if>
+				<c:if test = "${ branch.id != editUser.branch_id }">
+					<option value = "${ branch.id }"  > ${ branch.name }</option>
+				</c:if>
+			</c:forEach>
+		</select><br />
+	</c:if>
+	<c:if test = "${ loginUser.department_id != 1 }">
+		<label for = "department_id">部署・役所名</label><br />
+		<select name = "department_id">
+			<c:forEach var = "department" items = "${ department }">
+				<c:if test = "${ department.id == editUser.department_id }">
+					<option value = "${ department.id }" selected = "${ department.name }" > ${ department.name }</option>
+				</c:if>
+				<c:if test = "${ department.id != editUser.department_id }">
+					<option value = "${ department.id }"  > ${ department.name }</option>
+				</c:if>
+			</c:forEach>
+		</select><br />
+	</c:if>
 	<input type = "submit" value = "登録" /><br />
-	<a href = "./">戻る</a>
+	<a href = "management">戻る</a>
 </form>
 <div class = "copyright">Copyright(c)keisuke kinoshita</div>
 </div>

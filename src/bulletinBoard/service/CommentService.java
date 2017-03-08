@@ -57,7 +57,7 @@ public class CommentService {
 			close(connection);
 		}
 	}
-	public void put(Comment comment) {
+	public void delete(Comment comment) {
 
 		Connection connection = null;
 		try {

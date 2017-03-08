@@ -11,6 +11,7 @@
 </head>
 <body>
 <div class = "main-contents">
+<h2>新規投稿画面</h2>
 <div class="form-area">
 	<form action="newPost" method="post">
 		新規投稿<br />
