@@ -12,7 +12,7 @@
 <body>
 <div class = "main-contents">
 <h2>新規ユーザー登録画面</h2>
-<c:if test = "${ not empty errorMessage }">
+<c:if test = "${ not empty errorMessages }">
 	<div class = "errorMessages">
 		<ul>
 			<c:forEach items = "${ errorMessages }" var = "message">
@@ -31,6 +31,9 @@
 
 	<label for = "password">パスワード</label><br />
 	<input name = "password" type = "password" id = "password" /><br />
+
+	<label for = "password">パスワード(確認用)</label><br />
+	<input name = "check_password" type = "password" id = "password" /><br />
 
 	<label for = "branch_id">支店名</label><br />
 	<select name = "branch_id">

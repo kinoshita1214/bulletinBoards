@@ -51,6 +51,7 @@ public class UserDao {
 				int department_id = rs.getInt("department_id");
 				String name = rs.getString("name");
 				String password = rs.getString("password");
+				int is_stoped = rs.getInt("is_stoped");
 
 				User user = new User();
 				user.setId(id);
@@ -59,6 +60,7 @@ public class UserDao {
 				user.setDepartment_id(department_id);
 				user.setName(name);
 				user.setPassword(password);
+				user.setIs_stoped(is_stoped);
 
 				ret.add(user);
 			}

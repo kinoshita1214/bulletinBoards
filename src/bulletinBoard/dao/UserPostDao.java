@@ -62,6 +62,8 @@ public class UserPostDao {
 				String subject = rs.getString("subject");
 				String text = rs.getString("text");
 				String category = rs.getString("category");
+				int branch_id = rs.getInt("branch_id");
+				int department_id = rs.getInt("department_id");
 				Timestamp insertDate = rs.getTimestamp("insert_date");
 
 				UserPost post = new UserPost();
@@ -72,6 +74,8 @@ public class UserPostDao {
 				post.setSubject(subject);
 				post.setText(text);
 				post.setCategory(category);
+				post.setBranch_id(branch_id);
+				post.setDepartment_id(department_id);
 				post.setInsertDate(insertDate);
 
 				ret.add(post);
@@ -126,13 +130,13 @@ public class UserPostDao {
 		PreparedStatement ps = null;
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * FROM user_posts");
+			sql.append("SELECT * FROM posts");
 			sql.append(" ORDER BY insert_date  LIMIT 1");
 
 			ps = connection.prepareStatement(sql.toString());
 
 			ResultSet rs = ps.executeQuery();
-			List<UserPost> ret = toUserPostList(rs);
+			List<UserPost> ret = toUserPostsList(rs);
 			return ret;
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);
@@ -140,4 +144,35 @@ public class UserPostDao {
 			close(ps);
 		}
 	}
+	private List<UserPost> toUserPostsList(ResultSet rs)
+			throws SQLException {
+
+		List<UserPost> ret = new ArrayList<UserPost>();
+		try {
+			while (rs.next()) {
+
+
+				int id = rs.getInt("id");
+				int user_id = rs.getInt("user_id");
+				String subject = rs.getString("subject");
+				String text = rs.getString("text");
+				String category = rs.getString("category");
+				Timestamp insertDate = rs.getTimestamp("insert_date");
+
+				UserPost post = new UserPost();
+				post.setId(id);
+				post.setUser_id(user_id);
+				post.setSubject(subject);
+				post.setText(text);
+				post.setCategory(category);
+				post.setInsertDate(insertDate);
+
+				ret.add(post);
+			}
+			return ret;
+		} finally {
+			close(rs);
+		}
+	}
+
 }

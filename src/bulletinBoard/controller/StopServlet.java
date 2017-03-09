@@ -20,7 +20,7 @@ public class StopServlet extends HttpServlet {
 
 		User user = new User();
 
-		user.setId(Integer.parseInt(request.getParameter("management.id")));
+		user.setId(Integer.parseInt(request.getParameter("id")));
 		user.setIs_stoped(Integer.parseInt(request.getParameter("is_stoped")));
 		new UserService().invert(user);
 		response.sendRedirect("management");

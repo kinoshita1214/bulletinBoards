@@ -32,15 +32,15 @@ public class TopServlet extends HttpServlet {
 		List<UserPost> posts;
 		List<UserPost> categories;
 		List<UserComment> comments;
-		List<UserPost> dates;
+		List<UserPost> dates = new PostService().getDate();
 
+		SimpleDateFormat now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ss");
+		String start = now.format(new Date());
 
-		dates = new PostService().getDate();
-		String start = dates.get(0).getInsertDate().toString();
-		SimpleDateFormat e = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String end = e.format(new Date());
-		Post category = new Post();
-		category.setCategory(request.getParameter("category"));
+		String end = now.format(new Date());
+		if (dates != null) {
+			start = dates.get(0).getInsertDate().toString();
+		}
 
 		if (request.getParameter("start") != null && request.getParameter("end") != null) {
 			start = request.getParameter("start");
@@ -50,9 +50,12 @@ public class TopServlet extends HttpServlet {
 			start = dates.get(0).getInsertDate().toString();
 		}
 		if(StringUtils.isEmpty(request.getParameter("end")) == true) {
-			end = e.format(new Date());
+			end = now.format(new Date());
 		}
-
+		Post category = new Post();
+		if(!StringUtils.isEmpty(request.getParameter("category")) == true) {
+			category.setCategory(request.getParameter("category"));
+		}
 		user = (User) request.getSession().getAttribute("loginUser");
 		posts = new PostService().getPosts(start , end , category);
 		categories = new PostService().getCategory();
@@ -67,5 +70,6 @@ public class TopServlet extends HttpServlet {
 		request.setAttribute("end", end);
 
 		request.getRequestDispatcher("/top.jsp").forward(request, response);
+
 	}
 }

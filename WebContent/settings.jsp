@@ -37,7 +37,10 @@
 	<label for = "password">パスワード(確認用)</label>
 	<input name = "check_password" type = "password" id = "password" /><br />
 
-	<c:if test = "${ loginUser.branch_id != 1 }">
+	<c:if  test = "${ loginUser.id == editUser.id }">
+		<input type = "hidden" name = "branch_id" value = "${ editUser.branch_id }" />本社<br />
+	</c:if>
+	<c:if test = "${ loginUser.id != editUser.id  }">
 		<label for = "branch_id">支店名</label><br />
 		<select name = "branch_id">
 			<c:forEach var = "branch" items = "${ branch }">
@@ -51,7 +54,11 @@
 			</c:forEach>
 		</select><br />
 	</c:if>
-	<c:if test = "${ loginUser.department_id != 1 }">
+
+	<c:if  test = "${ loginUser.id == editUser.id }">
+		<input type = "hidden" name = "department_id" value = "${ editUser.department_id }" />人事総務<br />
+	</c:if>
+	<c:if test = "${ loginUser.id != editUser.id  }">
 		<label for = "department_id">部署・役所名</label><br />
 		<select name = "department_id">
 			<c:forEach var = "department" items = "${ department }">
@@ -67,7 +74,6 @@
 	<input type = "submit" value = "登録" /><br />
 	<a href = "management">戻る</a>
 </form>
-<div class = "copyright">Copyright(c)keisuke kinoshita</div>
 </div>
 </body>
 </html>

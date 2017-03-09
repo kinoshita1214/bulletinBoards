@@ -35,9 +35,7 @@ function check(){
 </head>
 <body>
 <div class="main-contents">
-<h2>ホーム画面</h2>
-<div class="header">
-
+<h2>ホーム</h2>
 	<c:if test="${ not empty loginUser }">
 		<a href="newPost">
 			<input type="hidden" name = "branch_id" value = "${ user.branch_id }" />
@@ -47,7 +45,6 @@ function check(){
 		<a href="management">ユーザー管理画面</a>
 		<a href="logout">ログアウト</a>
 	</c:if>
-</div>
 
 <c:if test="${ not empty loginUser }">
 	<div class="profile">
@@ -70,31 +67,30 @@ function check(){
 	</div>
 	<c:remove var = "errorMessages" scope = "session" />
 </c:if>
-<div class = "date">
-	<form action = "./" method = get>
+<form action = "./" method = get>
+	<div class = "date">
+		<label for = "category">日付検索</label><br />
 		<input type="date" name="start" value = "${ start }">
 
 		<input type="date" name="end" value = "${ end }">
-		<input type = "submit" value = "検索">
-	</form>
-</div>
+	</div>
 
-<div class = "category"></div>
-	<form action = "./" method = get >
+	<div class = "category">
 		<label for = "category">カテゴリー検索</label><br />
-			<select  name = "category">
-				<c:forEach var = "categories" items = "${ categories }">
-					<option value = "${ categories.category }" > ${ categories.category }</option>
-				</c:forEach>
-			</select>
-			<input type = "submit" value = "検索">
-	</form>
-</div>
+		<select  name = "category">
+		<option value="">選択してください</option>
+			<c:forEach var = "categories" items = "${ categories }">
+				<option value = "${ categories.category }" > ${ categories.category }</option>
+			</c:forEach>
+		</select>
+		<input type = "submit" value = "検索">
+	</div>
+</form>
 <div class="posts">
 	<c:forEach items="${ posts }" var="post">
 		<form action="deletePost" method="post" onSubmit="return check()">
 			<div class="login_id-name">
-				<span class="login_id"><c:out value = "${ post.login_id }" /></span>
+				<input type = "hidden" name = "login_id" value = "${ post.login_id }" />
 				<span class="name"><c:out value = "${ post.name }" /></span>
 			</div>
 			<div class = "subject">件名:<c:out value = "${ post.subject }" /></div>
@@ -103,11 +99,11 @@ function check(){
 			<div class = "category">カテゴリー:<c:out value = "${ post.category }" /></div>
 			<div class = "date"><fmt:formatDate value = "${ post.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 			<input type="hidden" name = "post.id" value = "${ post.id }" />
-			<c:if test = "${ post.user_id == user.id }">
-				<input type = "submit" value = "削除">
+			<c:if test = "${ post.user_id == user.id || loginUser.department_id == 2 || (loginUser.branch_id == post.branch_id && loginUser.department_id <= post.department_id)}">
+				<input type = "submit" value = "削除" />
 			</c:if>
 		</form>
-		コメント<br />
+
 		<div class="comments">
 			<c:forEach items="${ comments }" var="comment">
 				<c:if test = "${ comment.post_id == post.id }">
@@ -129,17 +125,17 @@ function check(){
 		</div>
 
 		<div class="form-area">
-			コメント<br />
+			コメント(500文字まで)<br />
 			<form action="newComment" method="post" >
 				<input type = "hidden" name = "post_id" value = "${ post.id }"/>
 				<textarea name="text" cols="100" rows="5" class="comment-box"></textarea>
 				<br />
-				<input type="submit" value="コメント">（500文字まで）
+				<input type="submit" value="コメント">
 			</form>
 		</div>
 	</c:forEach>
 </div>
 
-<div class="copyright">Copyright(c)keisuke kinoshita</div>
+</div>
 </body>
 </html>

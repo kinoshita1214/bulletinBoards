@@ -13,7 +13,38 @@
 
 function check(){
 
-	if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+	if(window.confirm('削除してよろしいですか？')){ // 確認ダイアログを表示
+
+		return true; // 「OK」時は送信を実行
+
+	}
+	else{ // 「キャンセル」時の処理
+
+		window.alert('キャンセルされました'); // 警告ダイアログを表示
+		return false; // 送信を中止
+
+	}
+
+}
+function stop(){
+
+	if(window.confirm('停止してよろしいですか？')){ // 確認ダイアログを表示
+
+		return true; // 「OK」時は送信を実行
+
+	}
+	else{ // 「キャンセル」時の処理
+
+		window.alert('キャンセルされました'); // 警告ダイアログを表示
+		return false; // 送信を中止
+
+	}
+
+}
+
+function reborn(){
+
+	if(window.confirm('復活してよろしいですか？')){ // 確認ダイアログを表示
 
 		return true; // 「OK」時は送信を実行
 
@@ -36,7 +67,6 @@ function check(){
 <div class="header">
 	<c:if test="${ not empty loginUser }">
 		<a href="signup">新規ユーザー登録</a>
-		<a href="./">ホーム</a>
 	</c:if>
 </div>
 <style type="text/css">
@@ -63,23 +93,23 @@ function check(){
 							<td><span class = "department_name"><c:out value="${management.department_name}" /></span></td>
 							<td>
 								<form action ="settings" method = "get">
-									<input type = "hidden" name = "management.id" value = "${ management.id }" />
+									<input type = "hidden" name = "id" value = "${ management.id }" />
 									<input type = "submit" value = "編集">
 								</form>
 							</td>
 							<td>
 								<c:if test = "${ management.id != loginUser.id }">
 									<c:if test = "${ management.is_stoped == 0 }">
-										<form action = "stop" method = "post" onSubmit="return check()">
-											<input type = "hidden" name = "management.id" value = "${ management.id }" />
+										<form action = "stop" method = "post" onSubmit="return stop()">
+											<input type = "hidden" name = "id" value = "${ management.id }" />
 											<input type = "hidden" name = "is_stoped" value = 1 />
 											<input type = "submit" value = "停止"/>
 										</form>
 									</c:if>
 
 									<c:if test = "${ management.is_stoped ==  1 }">
-										<form action = "stop" method = "post" onSubmit="return check()">
-											<input type = "hidden" name = "management.id" value = "${ management.id }" />
+										<form action = "stop" method = "post" onSubmit="return reborn()">
+											<input type = "hidden" name = "id" value = "${ management.id }" />
 											<input type = "hidden" name = "is_stoped" value = 0 />
 											<input type = "submit" value = "復活"/>
 										</form>
@@ -89,7 +119,7 @@ function check(){
 							<td>
 								<c:if test = "${ management.id != loginUser.id }">
 									<form action = "deleteUser" method = "post" onSubmit="return check()">
-										<input type = "hidden" name = "management.id" value = "${ management.id }" />
+										<input type = "hidden" name = "id" value = "${ management.id }" />
 										<input type = "submit" value = "削除"/>
 									</form>
 								</c:if>
@@ -101,7 +131,8 @@ function check(){
 			</div>
 		</div>
 </div>
-<div class = "copyright">Copyright(c)keisuke kinoshita</div>
+<a href = "./">戻る</a>
+
 </div>
 </body>
 </html>

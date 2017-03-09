@@ -34,38 +34,57 @@ public class NewPostServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		List<String> posts = new ArrayList<String>();
+		List<String> messages = new ArrayList<String>();
 
-		if (isValid(request, posts) == true) {
+		if (isValid(request, messages) == true) {
 
 			User user = (User) session.getAttribute("loginUser");
 
 			Post post = new Post();
 			post.setUser_id(user.getId());
 			post.setSubject(request.getParameter("subject"));
-			post.setText(request.getParameter("post"));
+			post.setText(request.getParameter("text"));
 			post.setCategory(request.getParameter("category"));
 
 			new PostService().register(post);
 
 			response.sendRedirect("./");
 		} else {
-			session.setAttribute("errorMessages", posts);
-			response.sendRedirect("./");
+			session.setAttribute("errorMessages", messages);
+			response.sendRedirect("post.jsp");
 		}
 	}
 
-	private boolean isValid(HttpServletRequest request, List<String> posts) {
+	private boolean isValid(HttpServletRequest request, List<String> messages) {
 
-		String post = request.getParameter("post");
+		String subject = request.getParameter("subject");
+		String text = request.getParameter("text");
+		String category = request.getParameter("category");
 
-		if (StringUtils.isEmpty(post) == true) {
-			posts.add("メッセージを入力してください");
+
+		if (StringUtils.isEmpty(subject) == true) {
+			messages.add("件名を入力してください");
+		} else {
+			if (subject.length() > 50) {
+				messages.add("件名は50以下で入力してください");
+			}
 		}
-		if (1000 < post.length()) {
-			posts.add("1000文字以下で入力してください");
+		if (StringUtils.isEmpty(text) == true) {
+			messages.add("本文を入力してください");
+		} else {
+			if (text.length() >1000) {
+				messages.add("本文は1000文字以下で入力してください");
+			}
 		}
-		if (posts.size() == 0) {
+		if (StringUtils.isEmpty(category) == true) {
+			messages.add("カテゴリーを入力してください");
+		} else {
+			if (category.length() >10) {
+				messages.add("カテゴリーは10文字以下で入力してください");
+			}
+		}
+
+		if (messages.size() == 0) {
 			return true;
 		} else {
 			return false;

@@ -34,16 +34,16 @@ public class UserService {
 		}
 	}
 
-	public void update ( User user) {
+	public void update (User editUser) {
 		Connection connection = null;
 		try {
 			connection = getConnection();
 
-			String encPassword = CipherUtil.encrypt (user.getPassword());
-			user.setPassword (encPassword);
+			String encPassword = CipherUtil.encrypt (editUser.getPassword());
+			editUser.setPassword (encPassword);
 
 			UserDao userDao = new UserDao();
-			userDao.update (connection , user);
+			userDao.update (connection , editUser);
 
 			commit (connection);
 		} catch (RuntimeException e) {

@@ -13,6 +13,8 @@ public class UserPost implements Serializable {
 	private String subject;
 	private String text;
 	private String category;
+	private int branch_id;
+	private int department_id;
 	private Date insertDate;
 	public int getId() {
 		return id;
@@ -61,6 +63,18 @@ public class UserPost implements Serializable {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public int getBranch_id() {
+		return branch_id;
+	}
+	public void setBranch_id(int branch_id) {
+		this.branch_id = branch_id;
+	}
+	public int getDepartment_id() {
+		return department_id;
+	}
+	public void setDepartment_id(int department_id) {
+		this.department_id = department_id;
 	}
 
 }
