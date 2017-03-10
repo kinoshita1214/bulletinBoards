@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import bulletinBoard.beans.User;
 import bulletinBoard.exception.SQLRuntimeException;
 
@@ -107,7 +109,7 @@ public class UserDao {
 		}
 	}
 
-	public void update(Connection connection, User user ) {
+	public void update(Connection connection, User editUser ) {
 
 		PreparedStatement ps = null;
 		try {
@@ -115,19 +117,28 @@ public class UserDao {
 			sql.append("UPDATE users SET");
 			sql.append("  login_id = ?");
 			sql.append(", name = ?");
-			sql.append(", password = ?");
+			if (!StringUtils.isEmpty(editUser.getPassword())) {
+				sql.append(", password = ?");
+			}
 			sql.append(", branch_id = ?");
 			sql.append(", department_id = ?");
 			sql.append(" WHERE");
 			sql.append(" id = ?");
 			ps = connection.prepareStatement(sql.toString());
 
-			ps.setString(1, user.getLogin_id());
-			ps.setString(2, user.getName());
-			ps.setString(3, user.getPassword());
-			ps.setInt(4, user.getBranch_id());
-			ps.setInt(5, user.getDepartment_id());
-			ps.setInt(6 , user.getId());
+			ps.setString(1, editUser.getLogin_id());
+			ps.setString(2, editUser.getName());
+			if (StringUtils.isEmpty(editUser.getPassword())) {
+				ps.setInt(3, editUser.getBranch_id());
+				ps.setInt(4, editUser.getDepartment_id());
+				ps.setInt(5 , editUser.getId());
+			} else {
+				ps.setString(3, editUser.getPassword());
+				ps.setInt(4, editUser.getBranch_id());
+				ps.setInt(5, editUser.getDepartment_id());
+				ps.setInt(6 , editUser.getId());
+			}
+
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);
@@ -202,6 +213,32 @@ public class UserDao {
 			close(ps);
 		}
 	}
+
+	public User overlap(Connection connection, String login_id) {
+
+		PreparedStatement ps = null;
+		try {
+			String sql = "SELECT * FROM users WHERE login_id = ?";
+
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, login_id);
+
+			ResultSet rs = ps.executeQuery();
+			List<User> userList = toUserList(rs);
+			if (userList.isEmpty() == true) {
+				return null;
+			} else if (2 <= userList.size()) {
+				throw new IllegalStateException("2 <= userList.size()");
+			} else {
+				return userList.get(0);
+			}
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
 
 }
 

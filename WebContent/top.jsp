@@ -42,7 +42,9 @@ function check(){
 			<input type="hidden" name = "department_id" value = "${ user.department_id }" />
 			新規投稿画面
 		</a>
-		<a href="management">ユーザー管理画面</a>
+		<c:if test = "${ user.department_id == 1 }">
+			<a href="management">ユーザー管理画面</a>
+		</c:if>
 		<a href="logout">ログアウト</a>
 	</c:if>
 
@@ -70,7 +72,7 @@ function check(){
 <form action = "./" method = get>
 	<div class = "date">
 		<label for = "category">日付検索</label><br />
-		<input type="date" name="start" value = "${ start }">
+		<input type="date" name="start" value = "${ start }"> ～
 
 		<input type="date" name="end" value = "${ end }">
 	</div>
@@ -78,7 +80,7 @@ function check(){
 	<div class = "category">
 		<label for = "category">カテゴリー検索</label><br />
 		<select  name = "category">
-		<option value="">選択してください</option>
+		<option value="">すべて</option>
 			<c:forEach var = "categories" items = "${ categories }">
 				<option value = "${ categories.category }" > ${ categories.category }</option>
 			</c:forEach>

@@ -26,9 +26,25 @@ public class SettingsServlet extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	List<String> messages = new ArrayList<String>();
+    	if (StringUtils.isEmpty(request.getParameter("id"))) {
+    		messages.add("不正なエラーが発生しました");
+    		request.setAttribute ("errorMessages" , messages);
+    		request.getRequestDispatcher("management").forward(request , response);
+    	} else {
+    		if (request.getParameter("id").matches("[^0-9]+$")){
+    			messages.add("不正なエラーが発生しました");
+        		request.setAttribute ("errorMessages" , messages);
+        		request.getRequestDispatcher("management").forward(request , response);
+    		}
+    	}
+    	int id = Integer.parseInt(request.getParameter("id"));
 
-		int id = Integer.parseInt(request.getParameter("id"));
-
+    	if (new UserService().getUser(id) == null) {
+    		messages.add("不正なエラーが発生しました");
+    		request.setAttribute ("errorMessages" , messages);
+    		request.getRequestDispatcher("management").forward(request , response);
+    	}
     	User editUser = new UserService().getUser(id);
     	request.setAttribute("editUser" , editUser);
 
@@ -37,6 +53,7 @@ public class SettingsServlet extends HttpServlet {
 		List<Department> department = new DepartmentService().getDepartment();
 		request.setAttribute("department" , department);
     	request.getRequestDispatcher ("settings.jsp").forward (request , response);
+
     }
 
     @Override
@@ -53,6 +70,7 @@ public class SettingsServlet extends HttpServlet {
     		} catch (NoRowsUpdatedRuntimeException e) {
     			messages.add ("他の人によって更新されています。最新のデータを表示しました。データを確認してください。");
     			request.setAttribute ("errorMessages" , messages);
+    			request.setAttribute("editUser" , editUser);
     			request.getRequestDispatcher ("settings.jsp").forward (request , response);
     			return;
     		}
@@ -81,20 +99,28 @@ public class SettingsServlet extends HttpServlet {
 		return editUser;
 	}
 
-	private boolean isValid(HttpServletRequest request, List<String> messages) {
+	private boolean isValid(HttpServletRequest request, List<String> messages) throws IOException, ServletException {
 
+		int id = Integer.parseInt(request.getParameter("id"));
+		User editUser = new UserService().getUser(id);
 		String login_id = request.getParameter("login_id");
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String check_password = request.getParameter("check_password");
 		int branch_id = Integer.parseInt(request.getParameter("branch_id"));
 		int department_id = Integer.parseInt(request.getParameter("department_id"));
-
+		User overlap = new UserService().overlap(login_id);
 		if (StringUtils.isEmpty(login_id)) {
 			messages.add("ログインIDを入力してください");
 		} else {
 			if (!login_id.matches("[a-zA-Z0-9]{6,20}")) {
 				messages.add("ログインIDが不正です");
+			} else {
+				if (!login_id.equals(editUser.getLogin_id())) {
+					if (overlap.getLogin_id() != null ) {
+						messages.add("既に使用されているログインIDです");
+					}
+				}
 			}
 		}
 		if (StringUtils.isEmpty(name)) {
@@ -104,9 +130,7 @@ public class SettingsServlet extends HttpServlet {
 				messages.add("ユーザー名は10文字以下で入力してください");
 			}
 		}
-		if (StringUtils.isEmpty(password)) {
-
-		} else {
+		if (!StringUtils.isEmpty(password)) {
 			if (password.length() < 6 || password.length() > 255) {
 				messages.add("パスワードは6文字以上255文字以下で入力してください");
 			} else {

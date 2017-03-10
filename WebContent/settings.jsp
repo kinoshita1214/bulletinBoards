@@ -25,16 +25,16 @@
 
 <form action = "settings" method = "post"><br />
 	<input type = "hidden" name = "id" value = "${ editUser.id }" />
-	<label for = "login_id">ログインID</label>
+	<label for = "login_id">ログインID</label><br />
 	<input name = "login_id" value = "${ editUser.login_id }"  /><br />
 
-	<label for = "name">ユーザー名</label>
+	<label for = "name">ユーザー名</label><br />
 	<input name = "name" value = "${ editUser.name }" /><br />
 
-	<label for = "password">パスワード</label>
+	<label for = "password">パスワード</label><br />
 	<input name = "password" type = "password" id = "password" /><br />
 
-	<label for = "password">パスワード(確認用)</label>
+	<label for = "password">パスワード(確認用)</label><br />
 	<input name = "check_password" type = "password" id = "password" /><br />
 
 	<c:if  test = "${ loginUser.id == editUser.id }">

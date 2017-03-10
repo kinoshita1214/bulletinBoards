@@ -35,24 +35,28 @@ public class SignUpServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
-		if (isValid(request , messages) == true) {
+		User user = new User();
+		user.setLogin_id(request.getParameter("login_id"));
+		user.setName(request.getParameter("name"));
+		user.setPassword(request.getParameter("password"));
+		user.setBranch_id(Integer.parseInt(request.getParameter("branch_id")));
+		user.setDepartment_id(Integer.parseInt(request.getParameter("department_id")));
 
-			User user = new User();
-			user.setLogin_id(request.getParameter("login_id"));
-			user.setName(request.getParameter("name"));
-			user.setPassword(request.getParameter("password"));
-			user.setBranch_id(Integer.parseInt(request.getParameter("branch_id")));
-			user.setDepartment_id(Integer.parseInt(request.getParameter("department_id")));
+		if (isValid(request , messages) == true) {
 
 			new UserService().register(user);
 
 			response.sendRedirect("management");
 		} else {
 			session.setAttribute("errorMessages" , messages);
-			response.sendRedirect("signup");
+			request.setAttribute("user" , user);
+			List<Branch> branch = new BranchService().getBranch();
+			request.setAttribute("branch" , branch);
+			List<Department> department = new DepartmentService().getDepartment();
+			request.setAttribute("department" , department);
+			request.getRequestDispatcher ("signup.jsp").forward (request , response);
 		}
 	}
-
 
 	private boolean isValid(HttpServletRequest request, List<String> messages) {
 		String login_id = request.getParameter("login_id");
@@ -67,6 +71,10 @@ public class SignUpServlet extends HttpServlet {
 		} else {
 			if (!login_id.matches("[a-zA-Z0-9]{6,20}")) {
 				messages.add("ログインIDが不正です");
+			} else {
+				if (new UserService().overlap(login_id) != null ) {
+					messages.add("既に使用されているログインIDです");
+				}
 			}
 		}
 		if (StringUtils.isEmpty(name)) {

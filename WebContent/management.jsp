@@ -80,6 +80,16 @@ function reborn(){
 }
 </style>
 <div class = "managements">
+<c:if test = "${ not empty errorMessages }">
+	<div class = "errorMessages">
+		<ul>
+			<c:forEach items = "${ errorMessages }" var = "message">
+				<li><c:out value = "${ message }" />
+			</c:forEach>
+		</ul>
+	</div>
+	<c:remove var = "errorMessages" scope = "session" />
+</c:if>
 		<div class = "management">
 			<div class = "users">
 				<div class="login_id-name">

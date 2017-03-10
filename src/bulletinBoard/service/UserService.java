@@ -5,6 +5,8 @@ import static bulletinBoard.utils.DBUtil.*;
 
 import java.sql.Connection;
 
+import org.apache.commons.lang.StringUtils;
+
 import bulletinBoard.beans.User;
 import bulletinBoard.dao.UserDao;
 import bulletinBoard.utils.CipherUtil;
@@ -39,9 +41,10 @@ public class UserService {
 		try {
 			connection = getConnection();
 
-			String encPassword = CipherUtil.encrypt (editUser.getPassword());
-			editUser.setPassword (encPassword);
-
+			if (!StringUtils.isEmpty(editUser.getPassword())) {
+				String encPassword = CipherUtil.encrypt (editUser.getPassword());
+				editUser.setPassword (encPassword);
+			}
 			UserDao userDao = new UserDao();
 			userDao.update (connection , editUser);
 
@@ -118,5 +121,27 @@ public class UserService {
 		} finally {
 			close(connection);
 		}
+	}
+	public User overlap (String login_id) {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+
+			UserDao userDao = new UserDao();
+			User overlap = userDao.overlap (connection , login_id);
+			commit (connection);
+
+			return overlap;
+		} catch (RuntimeException e) {
+			rollback (connection);
+			throw e;
+		} catch (Error e) {
+			rollback (connection);
+			throw e;
+		} finally {
+			close (connection);
+		}
+
 	}
 }
