@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bulletinBoard.beans.User;
 import bulletinBoard.beans.UserManagement;
 import bulletinBoard.service.ManagementService;
 
@@ -20,18 +19,8 @@ public class ManagementServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		User user = (User) request.getSession().getAttribute ("loginUser");
-		boolean isShowManagementForm;
-		if (user != null) {
-			isShowManagementForm = true;
-		} else {
-			isShowManagementForm =false;
-		}
-
 		List<UserManagement> managements = new ManagementService().getManagement(null);
-
 		request.setAttribute ("managements" , managements);
-		request.setAttribute("isShowManagementForm" , isShowManagementForm);
 
 		request.getRequestDispatcher ("/management.jsp").forward(request , response);
 
