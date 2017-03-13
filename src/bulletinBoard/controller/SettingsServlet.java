@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -26,24 +27,29 @@ public class SettingsServlet extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	HttpSession session = request.getSession();
     	List<String> messages = new ArrayList<String>();
+
     	if (StringUtils.isEmpty(request.getParameter("id"))) {
     		messages.add("不正なエラーが発生しました");
-    		request.setAttribute ("errorMessages" , messages);
-    		request.getRequestDispatcher("management").forward(request , response);
+    		session.setAttribute ("errorMessages" , messages);
+    		response.sendRedirect("management");
+    		return;
     	} else {
-    		if (request.getParameter("id").matches("[^0-9]+$")){
+    		if (request.getParameter("id").matches("[^0-9]+$") || request.getParameter("id").matches("[0-9]+[^0-9]+$")){
     			messages.add("不正なエラーが発生しました");
-        		request.setAttribute ("errorMessages" , messages);
-        		request.getRequestDispatcher("management").forward(request , response);
+        		session.setAttribute ("errorMessages" , messages);
+        		response.sendRedirect("management");
+        		return;
     		}
     	}
     	int id = Integer.parseInt(request.getParameter("id"));
 
     	if (new UserService().getUser(id) == null) {
     		messages.add("不正なエラーが発生しました");
-    		request.setAttribute ("errorMessages" , messages);
-    		request.getRequestDispatcher("management").forward(request , response);
+    		session.setAttribute ("errorMessages" , messages);
+    		response.sendRedirect("management");
+    		return;
     	}
     	User editUser = new UserService().getUser(id);
     	request.setAttribute("editUser" , editUser);
@@ -59,7 +65,7 @@ public class SettingsServlet extends HttpServlet {
     @Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+    	HttpSession session = request.getSession();
     	List<String> messages = new ArrayList<String>();
     	User editUser = getEditUser(request);
 
@@ -69,7 +75,7 @@ public class SettingsServlet extends HttpServlet {
     			new UserService().update (editUser);
     		} catch (NoRowsUpdatedRuntimeException e) {
     			messages.add ("他の人によって更新されています。最新のデータを表示しました。データを確認してください。");
-    			request.setAttribute ("errorMessages" , messages);
+    			session.setAttribute ("errorMessages" , messages);
     			request.setAttribute("editUser" , editUser);
     			request.getRequestDispatcher ("settings.jsp").forward (request , response);
     			return;

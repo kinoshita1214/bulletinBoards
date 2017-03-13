@@ -63,7 +63,7 @@ function reborn(){
 </head>
 <body>
 <div class = "main-contents">
-<h2>ユーザー管理画面</h2>
+<h2>ユーザー管理</h2>
 <div class="header">
 	<c:if test="${ not empty loginUser }">
 		<a href="signup">新規ユーザー登録</a>

@@ -35,23 +35,21 @@ public class NewPostServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		List<String> messages = new ArrayList<String>();
-
+		User user = (User) session.getAttribute("loginUser");
+		Post post = new Post();
+		post.setUser_id(user.getId());
+		post.setSubject(request.getParameter("subject"));
+		post.setText(request.getParameter("text"));
+		post.setCategory(request.getParameter("category"));
 		if (isValid(request, messages) == true) {
-
-			User user = (User) session.getAttribute("loginUser");
-
-			Post post = new Post();
-			post.setUser_id(user.getId());
-			post.setSubject(request.getParameter("subject"));
-			post.setText(request.getParameter("text"));
-			post.setCategory(request.getParameter("category"));
 
 			new PostService().register(post);
 
 			response.sendRedirect("./");
 		} else {
 			session.setAttribute("errorMessages", messages);
-			response.sendRedirect("post.jsp");
+			request.setAttribute("post", post);
+			request.getRequestDispatcher("post.jsp").forward(request , response);
 		}
 	}
 

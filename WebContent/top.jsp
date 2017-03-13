@@ -3,6 +3,7 @@
 <%@page isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,7 +17,7 @@
 
 function check(){
 
-	if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+	if(window.confirm('削除してよろしいですか？')){ // 確認ダイアログを表示
 
 		return true; // 「OK」時は送信を実行
 
@@ -40,10 +41,10 @@ function check(){
 		<a href="newPost">
 			<input type="hidden" name = "branch_id" value = "${ user.branch_id }" />
 			<input type="hidden" name = "department_id" value = "${ user.department_id }" />
-			新規投稿画面
+			新規投稿
 		</a>
 		<c:if test = "${ user.department_id == 1 }">
-			<a href="management">ユーザー管理画面</a>
+			<a href="management">ユーザー管理</a>
 		</c:if>
 		<a href="logout">ログアウト</a>
 	</c:if>
@@ -82,7 +83,12 @@ function check(){
 		<select  name = "category">
 		<option value="">すべて</option>
 			<c:forEach var = "categories" items = "${ categories }">
-				<option value = "${ categories.category }" > ${ categories.category }</option>
+				<c:if test = "${ categories.category == category.category }">
+					<option value = "${ categories.category }" selected = "${ categories.category }" > ${ categories.category }</option>
+				</c:if>
+				<c:if test = "${ categories.category != category.category }">
+					<option value = "${ categories.category }" > ${ categories.category }</option>
+				</c:if>
 			</c:forEach>
 		</select>
 		<input type = "submit" value = "検索">
@@ -96,8 +102,11 @@ function check(){
 				<span class="name"><c:out value = "${ post.name }" /></span>
 			</div>
 			<div class = "subject">件名:<c:out value = "${ post.subject }" /></div>
-			本文:
-			<div class = "text"><c:out value = "${post.text}" /></div>
+			本文<br />
+			<c:forEach var="str" items="${ fn:split(post.text,'
+			') }" >
+				${str}<br>
+			</c:forEach>
 			<div class = "category">カテゴリー:<c:out value = "${ post.category }" /></div>
 			<div class = "date"><fmt:formatDate value = "${ post.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 			<input type="hidden" name = "post.id" value = "${ post.id }" />
@@ -112,11 +121,14 @@ function check(){
 					<form action = "deleteComment" method = "post" onSubmit="return check()">
 						<div class="login_id-name">
 							<span class="login_id"></span>
-							<span class="name"><c:out value = "${comment.name}" /></span>
+							<span class="name"><c:out value = "${ comment.name }" /></span>
 							<span class="post_id"></span>
 						</div>
-						<div class = "text"><c:out value = "${comment.text}" /></div>
-						<div class = "date"><fmt:formatDate value = "${comment.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+						<c:forEach var="str" items="${ fn:split(comment.text,'
+						') }" >
+							${str}<br>
+						</c:forEach>
+						<div class = "date"><fmt:formatDate value = "${ comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 						<input type="hidden" name = "comment.id" value = "${ comment.id }" />
 						<c:if test = "${ comment.user_id == user.id }">
 							<input type = "submit" value = "削除">

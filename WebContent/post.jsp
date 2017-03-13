@@ -10,8 +10,9 @@
 <title>新規投稿画面</title>
 </head>
 <body>
+
 <div class = "main-contents">
-<h2>新規投稿画面</h2>
+<h2>新規投稿</h2>
 <c:if test = "${ not empty errorMessages }">
 	<div class = "errorMessages">
 		<ul>
@@ -26,12 +27,12 @@
 	<form action="newPost" method="post">
 		新規投稿<br />
 		件名(50文字まで)<br />
-		<input type = "text" name = "subject" size = "50" ><br />
+		<input type = "text" name = "subject" size = "50" value = "${ post.subject }" ><br />
 		本文(1000文字まで)<br />
-		<textarea name="text" cols="100" rows="5" class="text-box"></textarea><br />
+		<textarea name="text" id = "text" cols="100" rows="5" class="text-box" >${ post.text }</textarea><br />
 		カテゴリー(10文字まで)<br />
-		<input type = "text" name = "category" size = "50"><br />
-		<input type="submit" value="投稿"><input type = "reset" value = "リセット">
+		<input type = "text" name = "category" size = "50" value = "${ post.category }"><br />
+		<input type="submit" value="投稿">  <input type = "reset" value = "リセット">
 	</form>
 <a href = "./">戻る</a>
 </div>

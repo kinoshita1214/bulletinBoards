@@ -7,10 +7,12 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>ログイン</title>
+
+
 </head>
 <body>
 <div class = "main-contents">
-<h2>ログイン画面</h2>
+<h2>ログイン</h2>
 <c:if test = "${ not empty errorMessages }">
 	<div class = "errorMessages">
 		<ul>
@@ -23,10 +25,10 @@
 </c:if>
 
 <form action = "login" method = "post"><br />
-	<label for = "login_id">ログインID</label>
+	<label for = "login_id">ログインID</label><br />
 	<input name = "login_id" id = "login_id" /><br />
 
-	<label for = "password">パスワード</label>
+	<label for = "password">パスワード</label><br />
 	<input name = "password" type = "password" id = "password" /><br />
 
 	<input type = "submit" value = "ログイン" /><br />
