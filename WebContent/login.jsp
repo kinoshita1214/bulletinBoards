@@ -7,7 +7,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>ログイン</title>
-
+	<link href = "css/style.css" rel = "stylesheet" type = "text/css">
 
 </head>
 <body>
@@ -27,10 +27,10 @@
 <form action = "login" method = "post"><br />
 	<label for = "login_id">ログインID</label><br />
 	<input name = "login_id" id = "login_id" /><br />
-
+	<br />
 	<label for = "password">パスワード</label><br />
 	<input name = "password" type = "password" id = "password" /><br />
-
+	<br />
 	<input type = "submit" value = "ログイン" /><br />
 	</form>
 </div>

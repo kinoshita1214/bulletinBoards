@@ -10,7 +10,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>掲示板</title>
-	<link href="./css/style.css" rel="stylesheet" type="text/css">
+	<link href = "css/style.css" rel = "stylesheet" type = "text/css">
 	<link rel="stylesheet" type="text/css" href="calen_link/calendar.css">
 	<script type="text/javascript">
 <!--
@@ -36,7 +36,8 @@ function check(){
 </head>
 <body>
 <div class="main-contents">
-<h2>ホーム</h2>
+<h1>ホーム</h1>
+<div class = "header">
 	<c:if test="${ not empty loginUser }">
 		<a href="newPost">
 			<input type="hidden" name = "branch_id" value = "${ user.branch_id }" />
@@ -44,11 +45,11 @@ function check(){
 			新規投稿
 		</a>
 		<c:if test = "${ user.department_id == 1 }">
-			<a href="management">ユーザー管理</a>
+			<a href="management"> ユーザー管理</a>
 		</c:if>
-		<a href="logout">ログアウト</a>
+		<a href="logout"> ログアウト</a>
 	</c:if>
-
+</div>
 <c:if test="${ not empty loginUser }">
 	<div class="profile">
 		<div class="name"><h2><c:out value="${loginUser.name}" /></h2></div>
@@ -64,7 +65,7 @@ function check(){
 	<div class = "errorMessages">
 		<ul>
 			<c:forEach items = "${ errorMessages }" var = "message" >
-				<li><c:out value = "${ message }" />
+				<c:out value = "${ message }" />
 			</c:forEach>
 		</ul>
 	</div>
@@ -77,7 +78,7 @@ function check(){
 
 		<input type="date" name="end" value = "${ end }">
 	</div>
-
+	<br />
 	<div class = "category">
 		<label for = "category">カテゴリー検索</label><br />
 		<select  name = "category">
@@ -94,18 +95,19 @@ function check(){
 		<input type = "submit" value = "検索">
 	</div>
 </form>
+<br />
 <div class="posts">
 	<c:forEach items="${ posts }" var="post">
 		<form action="deletePost" method="post" onSubmit="return check()">
 			<div class="login_id-name">
 				<input type = "hidden" name = "login_id" value = "${ post.login_id }" />
-				<span class="name"><c:out value = "${ post.name }" /></span>
+				<span class="name"><c:out value = "${ post.name }" />さん</span>
 			</div>
 			<div class = "subject">件名:<c:out value = "${ post.subject }" /></div>
 			本文<br />
 			<c:forEach var="str" items="${ fn:split(post.text,'
 			') }" >
-				${str}<br>
+				<c:out value ="${str}"/><br>
 			</c:forEach>
 			<div class = "category">カテゴリー:<c:out value = "${ post.category }" /></div>
 			<div class = "date"><fmt:formatDate value = "${ post.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
@@ -118,26 +120,27 @@ function check(){
 		<div class="comments">
 			<c:forEach items="${ comments }" var="comment">
 				<c:if test = "${ comment.post_id == post.id }">
-					<form action = "deleteComment" method = "post" onSubmit="return check()">
-						<div class="login_id-name">
-							<span class="login_id"></span>
-							<span class="name"><c:out value = "${ comment.name }" /></span>
-							<span class="post_id"></span>
-						</div>
-						<c:forEach var="str" items="${ fn:split(comment.text,'
-						') }" >
-							${str}<br>
-						</c:forEach>
-						<div class = "date"><fmt:formatDate value = "${ comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
-						<input type="hidden" name = "comment.id" value = "${ comment.id }" />
-						<c:if test = "${ comment.user_id == user.id }">
-							<input type = "submit" value = "削除">
-						</c:if>
-					</form>
+					<div class = "comment">
+						<form action = "deleteComment" method = "post" onSubmit="return check()">
+							<div class="login_id-name-date">
+								<span class="login_id"></span>
+								<span class="name"><c:out value = "${ comment.name }" />:</span>
+								<span class="post_id"></span>
+								<span class = "date"><fmt:formatDate value = "${ comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></span>
+							</div>
+							<c:forEach var="str" items="${ fn:split(comment.text,'
+							') }" >
+								<c:out value = "${str}"/><br>
+							</c:forEach>
+							<input type="hidden" name = "comment.id" value = "${ comment.id }" />
+							<c:if test = "${ comment.user_id == user.id }">
+								<input class = "button1" type = "submit" value = "削除">
+							</c:if>
+						</form>
+					</div>
 				</c:if>
 			</c:forEach>
 		</div>
-
 		<div class="form-area">
 			コメント(500文字まで)<br />
 			<form action="newComment" method="post" >

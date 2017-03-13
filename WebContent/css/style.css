@@ -1,1 +1,66 @@
 @CHARSET "UTF-8";
+body {
+	background-color: #f8d2cf;
+}
+div.errorMessages{
+	font-weight: 700;
+	color: #ff0000;
+	text-align: left;
+}
+
+div.main-contents {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 20px;
+	margin-right: 20px;
+	background-color: #ffffff;
+	height: 100%;
+	width: 1000px;
+	margin:50px auto;
+	border: 7px solid #ffc7ac;
+	text-align: center;
+	padding: 40px;
+}
+.header{
+	text-align: right;
+}
+
+div.management{
+	text-align: left;
+	vertical-align: middle;
+
+}
+.table{
+	width: 1000px;
+	height: 900px
+ 	background-color: #cccccc;
+  	text-align: center;
+}
+
+div.date{
+	text-align:left;
+}
+div.category{
+	text-align:left;
+}
+div.posts{
+	text-align:left;
+
+}
+h2 {
+	padding-bottom: .5em;
+	border-bottom: 3px double #ccc;
+}
+div.comment{
+	text-align:left;
+	position: relative;
+	padding: .5em .75em;
+	background-color: #f0f0f0;
+	border-radius: 6px;
+}
+div.form-area{
+	text-align:left;
+}
+
+
+

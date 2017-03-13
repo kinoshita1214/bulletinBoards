@@ -29,29 +29,28 @@ public class SettingsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession session = request.getSession();
     	List<String> messages = new ArrayList<String>();
-
-    	if (StringUtils.isEmpty(request.getParameter("id"))) {
+    	String code = request.getParameter("id");
+    	if (StringUtils.isEmpty(code)) {
     		messages.add("不正なエラーが発生しました");
     		session.setAttribute ("errorMessages" , messages);
     		response.sendRedirect("management");
     		return;
     	} else {
-    		if (request.getParameter("id").matches("[^0-9]+$") || request.getParameter("id").matches("[0-9]+[^0-9]+$")){
+    		if (!code.matches("[0-9]+$")){
     			messages.add("不正なエラーが発生しました");
         		session.setAttribute ("errorMessages" , messages);
         		response.sendRedirect("management");
         		return;
     		}
     	}
-    	int id = Integer.parseInt(request.getParameter("id"));
-
-    	if (new UserService().getUser(id) == null) {
+    	int id = Integer.parseInt(code);
+    	User editUser = new UserService().getUser(id);
+    	if (editUser == null) {
     		messages.add("不正なエラーが発生しました");
     		session.setAttribute ("errorMessages" , messages);
     		response.sendRedirect("management");
     		return;
     	}
-    	User editUser = new UserService().getUser(id);
     	request.setAttribute("editUser" , editUser);
 
     	List<Branch> branch = new BranchService().getBranch();

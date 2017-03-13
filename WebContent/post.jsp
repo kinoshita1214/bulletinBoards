@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>新規投稿画面</title>
+<link href = "css/style.css" rel = "stylesheet" type = "text/css">
 </head>
 <body>
 
@@ -25,13 +26,13 @@
 </c:if>
 <div class="form-area">
 	<form action="newPost" method="post">
-		新規投稿<br />
 		件名(50文字まで)<br />
 		<input type = "text" name = "subject" size = "50" value = "${ post.subject }" ><br />
 		本文(1000文字まで)<br />
-		<textarea name="text" id = "text" cols="100" rows="5" class="text-box" >${ post.text }</textarea><br />
+		<textarea name="text" id = "text" cols="135" rows="35" class="text-box" >${ post.text }</textarea><br />
 		カテゴリー(10文字まで)<br />
-		<input type = "text" name = "category" size = "50" value = "${ post.category }"><br />
+		<input type = "text" name = "category" size = "15" value = "${ post.category }"><br />
+		<br />
 		<input type="submit" value="投稿">  <input type = "reset" value = "リセット">
 	</form>
 <a href = "./">戻る</a>
