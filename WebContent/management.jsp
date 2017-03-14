@@ -75,7 +75,7 @@ function reborn(){
 	<c:if test = "${ not empty errorMessages }">
 		<ul>
 			<c:forEach items = "${ errorMessages }" var = "message">
-				<c:out value = "${ message }" />
+				<c:out value = "${ message }" /><br/>
 			</c:forEach>
 		</ul>
 		<c:remove var = "errorMessages" scope = "session" />

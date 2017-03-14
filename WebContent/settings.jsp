@@ -16,7 +16,7 @@
 	<div class = "errorMessages">
 		<ul>
 			<c:forEach items = "${ errorMessages }" var = "message">
-				<c:out value = "${ message }" />
+				<c:out value = "${ message }" /><br/>
 			</c:forEach>
 		</ul>
 	</div>
@@ -38,7 +38,9 @@
 		<label for = "password">パスワード(確認用)</label><br />
 		<input name = "check_password" type = "password" id = "password" size = "35" style ="font-size: 12pt"/><br /><br />
 
-
+		<c:if test = "${ loginUser.id == editUser.id  }">
+			<input type = "hidden" name = "branch_id" value = "1"/>
+		</c:if>
 		<c:if test = "${ loginUser.id != editUser.id  }">
 			<label for = "branch_id">支店名</label><br />
 			<select  name = "branch_id" style="width: 150px " >
@@ -54,7 +56,9 @@
 			</select><br /><br />
 		</c:if>
 
-
+		<c:if test = "${ loginUser.id == editUser.id  }">
+			<input type = "hidden" name = "department_id" value = "1"/>
+		</c:if>
 		<c:if test = "${ loginUser.id != editUser.id  }">
 			<label for = "department_id">部署・役所名</label><br />
 			<select name = "department_id" style="width: 150px">
