@@ -33,10 +33,8 @@ public class UserPostDao {
 			ps.setString(1 , start);
 			ps.setString(2 , end);
 			if (category.getCategory() != null){
-
 				ps.setString(3 , category.getCategory());
 			}
-			System.out.println(ps.toString());
 			ResultSet rs = ps.executeQuery();
 
 

@@ -91,12 +91,12 @@ function check(){
 				</c:if>
 			</c:forEach>
 		</select>
-		<br /><input type = "submit" value = "検索">
+		<input type = "submit" value = "検索">
 	</div>
 </form>
 <div class = "reset">
 	<form action = "reset" method = "post">
-		<input type = "reset" value = "リセット">
+		<input type = "submit" value = "リセット"/>
 	</form>
 </div>
 <br />
@@ -157,8 +157,8 @@ function check(){
 				<textarea name="text" cols="109" rows="5" style = "font-size: 17px" class="comment-box"></textarea>
 				<br />
 				<input type="submit" value="コメント">
-			</form>
-		</div>
+			</form><br />
+		</div><br />
 	</c:forEach>
 </div><br/>
 <div class="copyright">Copyright(c)Keisuke Kinoshita</div>

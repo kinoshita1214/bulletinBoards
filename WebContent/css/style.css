@@ -139,6 +139,7 @@ div.comment{
 }
 div.form-area{
 	text-align:left;
+	border-bottom: 3px double #000000;
 }
 div.signup{
 	text-align: left;
