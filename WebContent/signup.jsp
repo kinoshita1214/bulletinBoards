@@ -75,7 +75,8 @@
 </div>
 <div class = "back">
 	<a href = "management" >戻る</a>
-</div>
+</div><br/>
+<div class="copyright">Copyright(c)Keisuke Kinoshita</div>
 </div>
 </body>
 </html>

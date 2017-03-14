@@ -131,7 +131,8 @@ function reborn(){
 	<div class = "back">
 		<a href = "./" >戻る</a>
 	</div>
-</div>
+</div><br/>
+<div class="copyright">Copyright(c)Keisuke Kinoshita</div>
 </div>
 </body>
 </html>
