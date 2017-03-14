@@ -41,7 +41,7 @@
 
 		<c:if test = "${ loginUser.id != editUser.id  }">
 			<label for = "branch_id">支店名</label><br />
-			<select name = "branch_id" style="width: 150px " >
+			<select  name = "branch_id" style="width: 150px " >
 				<c:forEach var = "branch" items = "${ branch }">
 
 					<c:if test = "${ branch.id == editUser.branch_id }">
