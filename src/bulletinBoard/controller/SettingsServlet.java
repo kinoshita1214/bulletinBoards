@@ -115,7 +115,7 @@ public class SettingsServlet extends HttpServlet {
 		int branch_id = Integer.parseInt(request.getParameter("branch_id"));
 		int department_id = Integer.parseInt(request.getParameter("department_id"));
 		User overlap = new UserService().overlap(login_id);
-		if (StringUtils.isEmpty(login_id)) {
+		if (StringUtils.isEmpty(login_id) || StringUtils.isBlank(login_id)) {
 			messages.add("ログインIDを入力してください");
 		} else {
 			if (!login_id.matches("[a-zA-Z0-9]{6,20}")) {
@@ -128,7 +128,7 @@ public class SettingsServlet extends HttpServlet {
 				}
 			}
 		}
-		if (StringUtils.isEmpty(name)) {
+		if (StringUtils.isEmpty(name) || StringUtils.isBlank(name)) {
 			messages.add("ユーザー名を入力してください");
 		} else {
 			if (name.length() > 10) {

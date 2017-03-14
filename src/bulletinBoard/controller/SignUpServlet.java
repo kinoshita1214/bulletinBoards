@@ -66,7 +66,7 @@ public class SignUpServlet extends HttpServlet {
 		int branch_id = Integer.parseInt(request.getParameter("branch_id"));
 		int department_id = Integer.parseInt(request.getParameter("department_id"));
 
-		if (StringUtils.isEmpty(login_id)) {
+		if (StringUtils.isEmpty(login_id) || StringUtils.isBlank(login_id)) {
 			messages.add("ログインIDを入力してください");
 		} else {
 			if (!login_id.matches("[a-zA-Z0-9]{6,20}")) {
@@ -77,14 +77,14 @@ public class SignUpServlet extends HttpServlet {
 				}
 			}
 		}
-		if (StringUtils.isEmpty(name)) {
+		if (StringUtils.isEmpty(name)|| StringUtils.isBlank(name)) {
 			messages.add("ユーザー名を入力してください");
 		} else {
 			if (name.length() > 10) {
 				messages.add("ユーザー名は10文字以下で入力してください");
 			}
 		}
-		if (StringUtils.isEmpty(password)) {
+		if (StringUtils.isEmpty(password)|| StringUtils.isBlank(password)) {
 			messages.add("パスワードを入力してください");
 		} else {
 			if (password.length() < 6 || password.length() > 255) {

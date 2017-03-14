@@ -36,7 +36,7 @@ function check(){
 </head>
 <body>
 <div class="main-contents">
-<h1>ホーム</h1>
+<h2>ホーム</h2>
 <div class = "header">
 	<c:if test="${ not empty loginUser }">
 		<a href="newPost">
@@ -52,9 +52,9 @@ function check(){
 </div>
 <c:if test="${ not empty loginUser }">
 	<div class="profile">
-		<div class="name"><h2><c:out value="${loginUser.name}" /></h2></div>
+		<div class="name"><h3><c:out value="${loginUser.name}" /></h3></div>
 		<div class="login_id">
-			@<c:out value="${loginUser.login_id}" />
+			<input type = "hidden" value="${loginUser.login_id}" />
 		</div>
 
 	</div>
@@ -78,10 +78,9 @@ function check(){
 
 		<input type="date" name="end" value = "${ end }">
 	</div>
-	<br />
 	<div class = "category">
 		<label for = "category">カテゴリー検索</label><br />
-		<select  name = "category">
+		<select  name = "category" style=" width: 300px">
 		<option value="">すべて</option>
 			<c:forEach var = "categories" items = "${ categories }">
 				<c:if test = "${ categories.category == category.category }">
@@ -92,31 +91,34 @@ function check(){
 				</c:if>
 			</c:forEach>
 		</select>
-		<input type = "submit" value = "検索">
+		<br /><input type = "submit" value = "検索">    <input type = "reset" value = "リセット">
 	</div>
 </form>
 <br />
 <div class="posts">
 	<c:forEach items="${ posts }" var="post">
-		<form action="deletePost" method="post" onSubmit="return check()">
-			<div class="login_id-name">
-				<input type = "hidden" name = "login_id" value = "${ post.login_id }" />
-				<span class="name"><c:out value = "${ post.name }" />さん</span>
-			</div>
-			<div class = "subject">件名:<c:out value = "${ post.subject }" /></div>
-			本文<br />
-			<c:forEach var="str" items="${ fn:split(post.text,'
-			') }" >
-				<c:out value ="${str}"/><br>
-			</c:forEach>
-			<div class = "category">カテゴリー:<c:out value = "${ post.category }" /></div>
-			<div class = "date"><fmt:formatDate value = "${ post.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
-			<input type="hidden" name = "post.id" value = "${ post.id }" />
-			<c:if test = "${ post.user_id == user.id || loginUser.department_id == 2 || (loginUser.branch_id == post.branch_id && loginUser.department_id <= post.department_id)}">
-				<input type = "submit" value = "削除" />
-			</c:if>
-		</form>
-
+		<div class = "post">
+			<form action="deletePost" method="post" onSubmit="return check()">
+				<div class="login_id-name">
+					<input type = "hidden" name = "login_id" value = "${ post.login_id }" />
+					<span class="name"><c:out value = "${ post.name }" />さん</span>
+				</div>
+				<div class = "subject">件名:<c:out value = "${ post.subject }" /></div>
+				本文<br />
+				<div class = "text1">
+					<c:forEach var="str" items="${ fn:split(post.text,'
+					') }" >
+						<c:out value ="${str}"/><br>
+					</c:forEach>
+				</div>
+				<div class = "category">カテゴリー:<c:out value = "${ post.category }" /></div>
+				<div class = "date"><fmt:formatDate value = "${ post.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+				<input type="hidden" name = "post.id" value = "${ post.id }" />
+				<c:if test = "${ post.user_id == user.id || loginUser.department_id == 2 || (loginUser.branch_id == post.branch_id && loginUser.department_id <= post.department_id)}">
+					<input class = "button2" type = "submit" value = "削除" />
+				</c:if>
+			</form>
+		</div>
 		<div class="comments">
 			<c:forEach items="${ comments }" var="comment">
 				<c:if test = "${ comment.post_id == post.id }">
@@ -128,13 +130,15 @@ function check(){
 								<span class="post_id"></span>
 								<span class = "date"><fmt:formatDate value = "${ comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></span>
 							</div>
-							<c:forEach var="str" items="${ fn:split(comment.text,'
-							') }" >
-								<c:out value = "${str}"/><br>
-							</c:forEach>
+							<div class = "text2">
+								<c:forEach var="str" items="${ fn:split(comment.text,'
+								') }" >
+									<c:out value = "${str}"/><br>
+								</c:forEach>
+							</div>
 							<input type="hidden" name = "comment.id" value = "${ comment.id }" />
-							<c:if test = "${ comment.user_id == user.id }">
-								<input class = "button1" type = "submit" value = "削除">
+							<c:if test = "${ comment.user_id == user.id || loginUser.department_id == 2 || (loginUser.branch_id == post.branch_id && loginUser.department_id <= post.department_id)}">
+								<input class = "button2" type = "submit" value = "削除">
 							</c:if>
 						</form>
 					</div>
@@ -145,7 +149,7 @@ function check(){
 			コメント(500文字まで)<br />
 			<form action="newComment" method="post" >
 				<input type = "hidden" name = "post_id" value = "${ post.id }"/>
-				<textarea name="text" cols="100" rows="5" class="comment-box"></textarea>
+				<textarea name="text" cols="109" rows="5" style = "font-size: 17px" class="comment-box"></textarea>
 				<br />
 				<input type="submit" value="コメント">
 			</form>

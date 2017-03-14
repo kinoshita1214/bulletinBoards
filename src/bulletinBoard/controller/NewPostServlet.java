@@ -60,21 +60,21 @@ public class NewPostServlet extends HttpServlet {
 		String category = request.getParameter("category");
 
 
-		if (StringUtils.isEmpty(subject) == true) {
+		if (StringUtils.isEmpty(subject) || StringUtils.isBlank(subject) == true) {
 			messages.add("件名を入力してください");
 		} else {
 			if (subject.length() > 50) {
 				messages.add("件名は50以下で入力してください");
 			}
 		}
-		if (StringUtils.isEmpty(text) == true) {
+		if (StringUtils.isEmpty(text) || StringUtils.isBlank(text) == true) {
 			messages.add("本文を入力してください");
 		} else {
 			if (text.length() >1000) {
 				messages.add("本文は1000文字以下で入力してください");
 			}
 		}
-		if (StringUtils.isEmpty(category) == true) {
+		if (StringUtils.isEmpty(category) || StringUtils.isBlank(category) == true) {
 			messages.add("カテゴリーを入力してください");
 		} else {
 			if (category.length() >10) {

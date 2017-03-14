@@ -18,7 +18,7 @@
 	<div class = "errorMessages">
 		<ul>
 			<c:forEach items = "${ errorMessages }" var = "message" >
-				<li><c:out value = "${ message }" />
+				<c:out value = "${ message }" />
 			</c:forEach>
 		</ul>
 	</div>
@@ -27,14 +27,14 @@
 <div class="form-area">
 	<form action="newPost" method="post">
 		件名(50文字まで)<br />
-		<input type = "text" name = "subject" size = "50" value = "${ post.subject }" ><br />
+		<input type = "text" name = "subject" size = "50" style ="font-size: 15pt" value = "${ post.subject }" ><br /><br />
 		本文(1000文字まで)<br />
-		<textarea name="text" id = "text" cols="135" rows="35" class="text-box" >${ post.text }</textarea><br />
+		<textarea name="text" id = "text" cols="95" rows="15" style ="font-size: 15pt" class="text-box" >${ post.text }</textarea><br /><br />
 		カテゴリー(10文字まで)<br />
-		<input type = "text" name = "category" size = "15" value = "${ post.category }"><br />
+		<input type = "text" name = "category" size = "15" style ="font-size: 15pt" value = "${ post.category }"><br />
 		<br />
-		<input type="submit" value="投稿">  <input type = "reset" value = "リセット">
-	</form>
+		<input type="submit" value="投稿">      <input type = "reset" value = "リセット">
+	</form><br />
 <a href = "./">戻る</a>
 </div>
 </div>

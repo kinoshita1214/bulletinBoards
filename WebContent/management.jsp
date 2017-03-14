@@ -75,7 +75,7 @@ function reborn(){
 	<c:if test = "${ not empty errorMessages }">
 		<ul>
 			<c:forEach items = "${ errorMessages }" var = "message">
-				<li><c:out value = "${ message }" />
+				<c:out value = "${ message }" />
 			</c:forEach>
 		</ul>
 		<c:remove var = "errorMessages" scope = "session" />
@@ -104,7 +104,7 @@ function reborn(){
 						<form action = "stop" method = "post" onSubmit="return stop()">
 							<input type = "hidden" name = "id" value = "${ management.id }" />
 							<input type = "hidden" name = "is_stoped" value = 1 />
-							<input type = "submit" value = "停止"/>
+							<input class = "button3" type = "submit" value = "停止"/>
 						</form>
 					</c:if>
 
@@ -112,7 +112,7 @@ function reborn(){
 						<form action = "stop" method = "post" onSubmit="return reborn()">
 							<input type = "hidden" name = "id" value = "${ management.id }" />
 							<input type = "hidden" name = "is_stoped" value = 0 />
-							<input type = "submit" value = "復活"/>
+							<input class = "button4" type = "submit" value = "復活"/>
 						</form>
 					</c:if>
 				</c:if>
@@ -121,16 +121,17 @@ function reborn(){
 				<c:if test = "${ management.id != loginUser.id }">
 					<form action = "deleteUser" method = "post" onSubmit="return check()">
 						<input type = "hidden" name = "id" value = "${ management.id }" />
-						<input type = "submit" value = "削除"/>
+						<input class = "button2" type = "submit" value = "削除"/>
 					</form>
 				</c:if>
 			</td>
 		<tr>
 		</c:forEach>
-	</table>
-<a href = "./">戻る</a>
+	</table><br />
+	<div class = "back">
+		<a href = "./" >戻る</a>
+	</div>
 </div>
-
 </div>
 </body>
 </html>

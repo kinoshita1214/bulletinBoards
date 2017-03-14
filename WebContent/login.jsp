@@ -7,17 +7,18 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>ログイン</title>
-	<link href = "css/style.css" rel = "stylesheet" type = "text/css">
+	<link href = "./css/style.css" rel = "stylesheet" type = "text/css">
 
 </head>
 <body>
 <div class = "main-contents">
+<div class = "login">
 <h2>ログイン</h2>
 <c:if test = "${ not empty errorMessages }">
 	<div class = "errorMessages">
 		<ul>
 			<c:forEach items = "${ errorMessages }" var = "message" >
-				<li><c:out value = "${ message }" />
+				<c:out value = "${ message }" />
 			</c:forEach>
 		</ul>
 	</div>
@@ -26,13 +27,14 @@
 
 <form action = "login" method = "post"><br />
 	<label for = "login_id">ログインID</label><br />
-	<input name = "login_id" id = "login_id" /><br />
+	<input name = "login_id" id = "login_id" size = "25" style = "font-size: 15px"/><br />
 	<br />
 	<label for = "password">パスワード</label><br />
-	<input name = "password" type = "password" id = "password" /><br />
+	<input name = "password" type = "password" id = "password" size = "25" style = "font-size: 15px" /><br />
 	<br />
 	<input type = "submit" value = "ログイン" /><br />
 	</form>
+</div>
 </div>
 </body>
 </html>
