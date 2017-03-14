@@ -36,7 +36,7 @@ public class UserPostDao {
 
 				ps.setString(3 , category.getCategory());
 			}
-
+			System.out.println(ps.toString());
 			ResultSet rs = ps.executeQuery();
 
 

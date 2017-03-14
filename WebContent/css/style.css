@@ -20,7 +20,7 @@ div.main-contents {
 	border: 7px solid #808080;
 	text-align: center;
 	padding: 40px;
-
+	table-layout:fixed;
 }
 
 
@@ -133,7 +133,6 @@ div.posts{
 
 div.comment{
 	text-align:left;
-
 	padding: .5em .75em;
 	background-color: #f0f0f0;
 
@@ -157,7 +156,15 @@ div.text1{
 	padding: .5em .75em;
 	border-radius: 6px;
 	border: 1px solid #c8c6b7;
+	table-layout:fixed;
+	word-wrap:break-word;
+}
+div.text2{
+	word-wrap:break-word;
 }
 div.back{
+	text-align:left;
+}
+div.reset{
 	text-align:left;
 }

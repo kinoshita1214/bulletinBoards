@@ -32,6 +32,7 @@ public class LoginFilter implements Filter {
 			if (url.matches("/login$")) {
 
 				if (session.getAttribute("loginUser") != null) {
+
 					chain.doFilter(request, response);
 				} else {
 					RequestDispatcher dispatcher = request.getRequestDispatcher("login");

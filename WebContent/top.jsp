@@ -91,9 +91,14 @@ function check(){
 				</c:if>
 			</c:forEach>
 		</select>
-		<br /><input type = "submit" value = "検索">    <input type = "reset" value = "リセット">
+		<br /><input type = "submit" value = "検索">
 	</div>
 </form>
+<div class = "reset">
+	<form action = "reset" method = "post">
+		<input type = "reset" value = "リセット">
+	</form>
+</div>
 <br />
 <div class="posts">
 	<c:forEach items="${ posts }" var="post">
@@ -113,8 +118,8 @@ function check(){
 				</div>
 				<div class = "category">カテゴリー:<c:out value = "${ post.category }" /></div>
 				<div class = "date"><fmt:formatDate value = "${ post.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
-				<input type="hidden" name = "post.id" value = "${ post.id }" />
 				<c:if test = "${ post.user_id == user.id || loginUser.department_id == 2 || (loginUser.branch_id == post.branch_id && loginUser.department_id <= post.department_id)}">
+					<input type="hidden" name = "post.id" value = "${ post.id }" />
 					<input class = "button2" type = "submit" value = "削除" />
 				</c:if>
 			</form>
@@ -136,8 +141,8 @@ function check(){
 									<c:out value = "${str}"/><br>
 								</c:forEach>
 							</div>
-							<input type="hidden" name = "comment.id" value = "${ comment.id }" />
 							<c:if test = "${ comment.user_id == user.id || loginUser.department_id == 2 || (loginUser.branch_id == post.branch_id && loginUser.department_id <= post.department_id)}">
+								<input type="hidden" name = "comment.id" value = "${ comment.id }" />
 								<input class = "button2" type = "submit" value = "削除">
 							</c:if>
 						</form>

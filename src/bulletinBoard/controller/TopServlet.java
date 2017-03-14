@@ -35,22 +35,21 @@ public class TopServlet extends HttpServlet {
 		List<UserPost> dates = new PostService().getDate();
 
 		SimpleDateFormat now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ss");
-		String start = now.format(new Date());
-
-		String end = now.format(new Date());
+		String start = now.format(new Date()) + " 00:00:00";
+		String end = now.format(new Date()) + " 23:59:59";
 		if (dates != null) {
 			start = dates.get(0).getInsertDate().toString();
 		}
 
 		if (request.getParameter("start") != null && request.getParameter("end") != null) {
-			start = request.getParameter("start");
-			end = request.getParameter("end");
+			start = request.getParameter("start") + " 00:00:00";
+			end = request.getParameter("end") + " 23:59:59";
 		}
 		if (StringUtils.isEmpty(request.getParameter("start")) == true) {
 			start = dates.get(0).getInsertDate().toString();
 		}
 		if(StringUtils.isEmpty(request.getParameter("end")) == true) {
-			end = now.format(new Date());
+			end = now.format(new Date()) + " 23:59:59";
 		}
 		Post category = new Post();
 		if(!StringUtils.isEmpty(request.getParameter("category")) == true) {
