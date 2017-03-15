@@ -49,12 +49,14 @@ public class TopServlet extends HttpServlet {
 			start = dates.get(0).getInsertDate().toString();
 		}
 		if(StringUtils.isEmpty(request.getParameter("end")) == true) {
-			end = now.format(new Date()) + " 23:59:59";
+			end = now.format(new Date());
 		}
 		Post category = new Post();
 		if(!StringUtils.isEmpty(request.getParameter("category")) == true) {
 			category.setCategory(request.getParameter("category"));
 		}
+		String start1 = request.getParameter("start");
+		String end1 = request.getParameter("end");
 		user = (User) request.getSession().getAttribute("loginUser");
 		posts = new PostService().getPosts(start , end , category);
 		categories = new PostService().getCategory();
@@ -67,8 +69,10 @@ public class TopServlet extends HttpServlet {
 		request.setAttribute("comments", comments);
 		request.setAttribute("start", start);
 		request.setAttribute("end", end);
+		request.setAttribute("start1", start1);
+		request.setAttribute("end1", end1);
 
-		request.getRequestDispatcher("/top.jsp").forward(request, response);
+		request.getRequestDispatcher("top.jsp").forward(request, response);
 
 	}
 }

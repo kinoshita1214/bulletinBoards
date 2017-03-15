@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class = "main-contents">
-<div class = "login">
+
 <h2>ログイン</h2>
 <c:if test = "${ not empty errorMessages }">
 	<div class = "errorMessages">
@@ -32,10 +32,10 @@
 	<label for = "password">パスワード</label><br />
 	<input name = "password" type = "password" id = "password" size = "25" style = "font-size: 15px" /><br />
 	<br />
-	<input type = "submit" value = "ログイン" /><br />
+	<input type = "submit" value = "ログイン" /><br /><br />
 	</form>
+<div class="copyright">Copyright(c)Keisuke Kinoshita</div><br />
 </div><br/>
-<div class="copyright">Copyright(c)Keisuke Kinoshita</div>
-</div>
+
 </body>
 </html>

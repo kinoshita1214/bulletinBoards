@@ -38,7 +38,6 @@ public class LoginServlet extends HttpServlet {
 		if (user != null && user.getIs_stoped() == 0) {
 
 			session.setAttribute("loginUser", user);
-
 			response.sendRedirect("./");
 		} else {
 

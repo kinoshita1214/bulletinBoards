@@ -52,9 +52,9 @@ function check(){
 </div>
 <c:if test="${ not empty loginUser }">
 	<div class="profile">
-		<div class="name"><h3><c:out value="${loginUser.name}" /></h3></div>
+		<div class="name"><h3><c:out value="${ loginUser.name }" /></h3></div>
 		<div class="login_id">
-			<input type = "hidden" value="${loginUser.login_id}" />
+			<input type = "hidden" value="${ loginUser.login_id }" />
 		</div>
 
 	</div>
@@ -74,9 +74,9 @@ function check(){
 <form action = "./" method = get>
 	<div class = "date">
 		<label for = "category">日付検索</label><br />
-		<input type="date" name="start" value = "${ start }"> ～
+		<input type="date" name="start" value = "${ start1 }"> ～
 
-		<input type="date" name="end" value = "${ end }">
+		<input type="date" name="end" value = "${ end1 }">
 	</div>
 	<div class = "category">
 		<label for = "category">カテゴリー検索</label><br />
@@ -97,7 +97,7 @@ function check(){
 <div class = "reset">
 	<form action = "reset" method = "post">
 		<input type = "submit" value = "リセット"/>
-	</form>
+	</form><br />
 </div>
 <br />
 <div class="posts">
@@ -150,7 +150,7 @@ function check(){
 				</c:if>
 			</c:forEach>
 		</div>
-		<div class="form-area">
+		<div class="comment-area">
 			コメント(500文字まで)<br />
 			<form action="newComment" method="post" >
 				<input type = "hidden" name = "post_id" value = "${ post.id }"/>
