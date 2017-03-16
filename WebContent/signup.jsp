@@ -44,11 +44,11 @@
 		<c:forEach var = "branch" items = "${ branch }">
 			<c:if test = "${ user.branch_id == null }">
 				<option value = "${ branch.id }" > ${ branch.name }</option>
-
-				<c:if test = "${ branch.id == user.branch_id }">
-					<option value = "${ branch.id }" selected = "${ branch_id }" > ${ branch.name }</option>
-				</c:if>
 			</c:if>
+			<c:if test = "${ branch.id == user.branch_id }">
+				<option value = "${ branch.id }" selected = "${ branch_id }" > ${ branch.name }</option>
+			</c:if>
+
 			<c:if test = "${ branch_id != user.branch_id  }">
 				<option value = "${ branch.id }" > ${ branch.name }</option>
 			</c:if>
@@ -60,11 +60,11 @@
 		<c:forEach var = "department" items = "${ department }">
 			<c:if test = "${ user.department_id == null }">
 				<option value = "${ department.id }" > ${ department.name }</option>
-
-				<c:if test = "${ department.id == user.department_id }">
-					<option value = "${ department.id }" selected = "${ department_id }" > ${ department.name }</option>
-				</c:if>
 			</c:if>
+			<c:if test = "${ department.id == user.department_id }">
+				<option value = "${ department.id }" selected = "${ department_id }" > ${ department.name }</option>
+			</c:if>
+
 			<c:if test = "${ department_id != user.department_id  }">
 				<option value = "${ department.id }" > ${ department.name }</option>
 			</c:if>
