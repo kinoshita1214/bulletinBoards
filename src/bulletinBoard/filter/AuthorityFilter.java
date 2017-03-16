@@ -20,7 +20,7 @@ import bulletinBoard.beans.User;
 /**
  * Servlet Filter implementation class AuthorityFilter
  */
-@WebFilter(urlPatterns = { "/management", "/signup" , "/settings"})
+@WebFilter(filterName = "authority-filter",urlPatterns = {"/management", "/signup" , "/settings"})
 public class AuthorityFilter implements Filter {
 
 	public void destroy() {
@@ -30,17 +30,24 @@ public class AuthorityFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		User user = (User) ((HttpServletRequest) request).getSession().getAttribute("loginUser");
-		if (user.getBranch_id() == 1 && user.getDepartment_id()==1) {
-			chain.doFilter(request, response);
-		} else {
-			List<String> messages = new ArrayList<String>();
-			messages.add("権限がありません。");
-			session.setAttribute("errorMessages", messages);
 
+		if (user != null) {
+			if (user.getBranch_id() == 1 && user.getDepartment_id() == 1) {
+				chain.doFilter(request, response);
+			} else {
+				List<String> messages = new ArrayList<String>();
+				messages.add("権限がありません");
+				session.setAttribute("errorMessages", messages);
+
+				((HttpServletResponse) response).sendRedirect("./");
+
+			}
+		} else {
 			((HttpServletResponse) response).sendRedirect("./");
 		}
-
 	}
+
+
 
 
 	public void init(FilterConfig fConfig) throws ServletException {

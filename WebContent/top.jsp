@@ -109,6 +109,7 @@ function check(){
 					<span class="name"><c:out value = "${ post.name }" />さん</span>
 				</div>
 				<div class = "subject">件名:<c:out value = "${ post.subject }" /></div>
+				<div class = "category">カテゴリー:<c:out value = "${ post.category }" /></div>
 				本文<br />
 				<div class = "text1">
 					<c:forEach var="str" items="${ fn:split(post.text,'
@@ -116,7 +117,6 @@ function check(){
 						<c:out value ="${str}"/><br>
 					</c:forEach>
 				</div>
-				<div class = "category">カテゴリー:<c:out value = "${ post.category }" /></div>
 				<div class = "date"><fmt:formatDate value = "${ post.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 				<c:if test = "${ post.user_id == user.id || loginUser.department_id == 2 || (loginUser.branch_id == post.branch_id && loginUser.department_id <= post.department_id)}">
 					<input type="hidden" name = "post.id" value = "${ post.id }" />

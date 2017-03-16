@@ -19,7 +19,7 @@ import bulletinBoard.service.UserService;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter("/*")
+@WebFilter(filterName = "login-filter",urlPatterns = "/*")
 public class LoginFilter implements Filter {
 	public void destroy() {
 		// TODO Auto-generated method stub
