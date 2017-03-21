@@ -35,7 +35,9 @@ public class LoginFilter implements Filter {
 			if (url.equals("/login")) {
 				chain.doFilter(request, response);
 			} else {
-				if (session.getAttribute("loginUser") != null) {
+				if (session.getAttribute("loginUser") == null) {
+					((HttpServletResponse) response).sendRedirect("login");
+				} else {
 					int id = user.getId();
 					user = new UserService().getUser(id);
 					if(user == null){
@@ -48,16 +50,8 @@ public class LoginFilter implements Filter {
 					}
 					session.setAttribute("loginUser", user);
 					chain.doFilter(request, response);
-				} else {
-//					RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-//					dispatcher.forward(request,response);
-					((HttpServletResponse) response).sendRedirect("login");
 				}
 			}
-//			if((session = (HttpSession)((HttpServletRequest) request).getSession(false)) == null){
-//				RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-//				dispatcher.forward(request,response);
-//			}
 
 	}
 

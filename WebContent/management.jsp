@@ -22,7 +22,7 @@ function check(){
 	else{ // 「キャンセル」時の処理
 
 		window.alert('キャンセルされました'); // 警告ダイアログを表示
-		return false; // 送信を中止
+		return false; // 削除を中止
 
 	}
 
@@ -37,7 +37,7 @@ function stop(){
 	else{ // 「キャンセル」時の処理
 
 		window.alert('キャンセルされました'); // 警告ダイアログを表示
-		return false; // 送信を中止
+		return false; // 停止を中止
 
 	}
 
@@ -53,7 +53,7 @@ function reborn(){
 	else{ // 「キャンセル」時の処理
 
 		window.alert('キャンセルされました'); // 警告ダイアログを表示
-		return false; // 送信を中止
+		return false; // 復活を中止
 
 	}
 

@@ -25,7 +25,7 @@ function check(){
 	else{ // 「キャンセル」時の処理
 
 		window.alert('キャンセルされました'); // 警告ダイアログを表示
-		return false; // 送信を中止
+		return false; // 削除を中止
 
 	}
 
@@ -107,6 +107,7 @@ function check(){
 				<div class="login_id-name">
 					<input type = "hidden" name = "login_id" value = "${ post.login_id }" />
 					<span class="name"><c:out value = "${ post.name }" />さん</span>
+					<div class = "date"><fmt:formatDate value = "${ post.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 				</div>
 				<div class = "subject">件名:<c:out value = "${ post.subject }" /></div>
 				<div class = "category">カテゴリー:<c:out value = "${ post.category }" /></div>
@@ -117,8 +118,7 @@ function check(){
 						<c:out value ="${str}"/><br>
 					</c:forEach>
 				</div>
-				<div class = "date"><fmt:formatDate value = "${ post.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
-				<c:if test = "${ post.user_id == user.id || loginUser.department_id == 2 || (loginUser.branch_id == post.branch_id && loginUser.department_id <= post.department_id)}">
+				<c:if test = "${ post.user_id == loginUser.id || loginUser.department_id == 2 || (loginUser.branch_id == post.branch_id && loginUser.department_id <= post.department_id) && loginUser.branch_id != 1}">
 					<input type="hidden" name = "post.id" value = "${ post.id }" />
 					<input class = "button2" type = "submit" value = "削除" />
 				</c:if>
@@ -141,7 +141,7 @@ function check(){
 									<c:out value = "${str}"/><br>
 								</c:forEach>
 							</div>
-							<c:if test = "${ comment.user_id == user.id || loginUser.department_id == 2 || (loginUser.branch_id == post.branch_id && loginUser.department_id <= post.department_id)}">
+							<c:if test = "${ comment.user_id == loginUser.id || loginUser.department_id == 2 || (loginUser.branch_id == comment.branch_id && loginUser.department_id <= comment.department_id) && loginUser.branch_id != 1}">
 								<input type="hidden" name = "comment.id" value = "${ comment.id }" />
 								<input class = "button2" type = "submit" value = "削除">
 							</c:if>
