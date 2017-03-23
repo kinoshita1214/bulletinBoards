@@ -42,9 +42,6 @@
 
 	<select name = "branch_id"  style="width: 150px;height: 30px" >
 		<c:forEach var = "branch" items = "${ branch }">
-			<c:if test = "${ user.branch_id == null }">
-				<option value = "${ branch.id }" > ${ branch.name }</option>
-			</c:if>
 
 			<c:if test = "${ branch.id == user.branch_id }">
 				<option value = "${ branch.id }" selected = "${ branch_name }" > ${ branch.name }</option>
@@ -59,9 +56,7 @@
 	<label for = "department_id">部署・役所名</label><br />
 	<select name = "department_id" style=" width: 150px;height: 30px" >
 		<c:forEach var = "department" items = "${ department }">
-			<c:if test = "${ user.department_id == null }">
-				<option value = "${ department.id }" > ${ department.name }</option>
-			</c:if>
+
 			<c:if test = "${ department.id == user.department_id }">
 				<option value = "${ department.id }" selected = "${ department_id }" > ${ department.name }</option>
 			</c:if>
