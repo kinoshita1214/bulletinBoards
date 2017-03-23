@@ -52,7 +52,7 @@ function check(){
 </div>
 <c:if test="${ not empty loginUser }">
 	<div class="profile">
-		<div class="name"><h3><c:out value="${ loginUser.name }" /></h3></div>
+		<div class="name"><h3><c:out value="${ loginUser.name }" />さん</h3></div>
 		<div class="login_id">
 			<input type = "hidden" value="${ loginUser.login_id }" />
 		</div>

@@ -31,13 +31,13 @@ public class SettingsServlet extends HttpServlet {
     	List<String> messages = new ArrayList<String>();
     	String code = request.getParameter("id");
     	if (StringUtils.isEmpty(code)) {
-    		messages.add("不正なエラーが発生しました");
+    		messages.add("不正なアクセスです");
     		session.setAttribute ("errorMessages" , messages);
     		response.sendRedirect("management");
     		return;
     	} else {
     		if (!code.matches("[0-9]+$")){
-    			messages.add("不正なエラーが発生しました");
+    			messages.add("不正なアクセスです");
         		session.setAttribute ("errorMessages" , messages);
         		response.sendRedirect("management");
         		return;
@@ -46,7 +46,7 @@ public class SettingsServlet extends HttpServlet {
     	int id = Integer.parseInt(code);
     	User editUser = new UserService().getUser(id);
     	if (editUser == null) {
-    		messages.add("不正なエラーが発生しました");
+    		messages.add("不正なアクセスです");
     		session.setAttribute ("errorMessages" , messages);
     		response.sendRedirect("management");
     		return;
@@ -114,7 +114,7 @@ public class SettingsServlet extends HttpServlet {
 		String check_password = request.getParameter("check_password");
 		int branch_id = Integer.parseInt(request.getParameter("branch_id"));
 		int department_id = Integer.parseInt(request.getParameter("department_id"));
-		User overlap = new UserService().overlap(login_id);
+
 		if (StringUtils.isEmpty(login_id) || StringUtils.isBlank(login_id)) {
 			messages.add("ログインIDを入力してください");
 		} else {
@@ -122,7 +122,7 @@ public class SettingsServlet extends HttpServlet {
 				messages.add("ログインIDが不正です");
 			} else {
 				if (!login_id.equals(editUser.getLogin_id())) {
-					if (overlap.getLogin_id() != null ) {
+					if (new UserService().overlap(login_id) != null ) {
 						messages.add("既に使用されているログインIDです");
 					}
 				}

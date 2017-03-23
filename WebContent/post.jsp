@@ -33,7 +33,7 @@
 		カテゴリー(10文字まで)<br />
 		<input type = "text" name = "category" size = "15" style ="font-size: 15pt" value = "${ post.category }"><br />
 		<br />
-		<input type="submit" value="投稿">      <input type = "reset" value = "リセット">
+		<input type="submit" value="投稿">
 	</form><br />
 <a href = "./">戻る</a>
 </div><br/>
