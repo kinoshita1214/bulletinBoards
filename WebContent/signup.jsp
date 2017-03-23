@@ -18,7 +18,7 @@
 	<div class = "errorMessages">
 		<ul>
 			<c:forEach items = "${ errorMessages }" var = "message">
-				<c:out value = "${ message }" /><br />
+				・<c:out value = "${ message }" /><br />
 			</c:forEach>
 		</ul>
 	</div>
@@ -40,23 +40,24 @@
 
 	<label for = "branch_id">支店名</label><br />
 
-	<select name = "branch_id"  style="width: 150px" >
+	<select name = "branch_id"  style="width: 150px;height: 30px" >
 		<c:forEach var = "branch" items = "${ branch }">
 			<c:if test = "${ user.branch_id == null }">
 				<option value = "${ branch.id }" > ${ branch.name }</option>
 			</c:if>
+
 			<c:if test = "${ branch.id == user.branch_id }">
-				<option value = "${ branch.id }" selected = "${ branch_id }" > ${ branch.name }</option>
+				<option value = "${ branch.id }" selected = "${ branch_name }" > ${ branch.name }</option>
 			</c:if>
 
-			<c:if test = "${ branch_id != user.branch_id  }">
+			<c:if test = "${ branch.id != user.branch_id  }">
 				<option value = "${ branch.id }" > ${ branch.name }</option>
 			</c:if>
 		</c:forEach>
 
 	</select><br /><br />
 	<label for = "department_id">部署・役所名</label><br />
-	<select name = "department_id" style=" width: 150px" >
+	<select name = "department_id" style=" width: 150px;height: 30px" >
 		<c:forEach var = "department" items = "${ department }">
 			<c:if test = "${ user.department_id == null }">
 				<option value = "${ department.id }" > ${ department.name }</option>
@@ -65,7 +66,7 @@
 				<option value = "${ department.id }" selected = "${ department_id }" > ${ department.name }</option>
 			</c:if>
 
-			<c:if test = "${ department_id != user.department_id  }">
+			<c:if test = "${ department.id != user.department_id  }">
 				<option value = "${ department.id }" > ${ department.name }</option>
 			</c:if>
 		</c:forEach>

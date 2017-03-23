@@ -16,7 +16,7 @@
 	<div class = "errorMessages">
 		<ul>
 			<c:forEach items = "${ errorMessages }" var = "message">
-				<c:out value = "${ message }" /><br/>
+				・<c:out value = "${ message }" /><br/>
 			</c:forEach>
 		</ul>
 	</div>
@@ -43,7 +43,7 @@
 		</c:if>
 		<c:if test = "${ loginUser.id != editUser.id  }">
 			<label for = "branch_id">支店名</label><br />
-			<select  name = "branch_id" style="width: 150px " >
+			<select  name = "branch_id" style="width: 150px;height: 30px " >
 				<c:forEach var = "branch" items = "${ branch }">
 
 					<c:if test = "${ branch.id == editUser.branch_id }">
@@ -61,7 +61,7 @@
 		</c:if>
 		<c:if test = "${ loginUser.id != editUser.id  }">
 			<label for = "department_id">部署・役所名</label><br />
-			<select name = "department_id" style="width: 150px">
+			<select name = "department_id" style="width: 150px;height: 30px">
 				<c:forEach var = "department" items = "${ department }">
 					<c:if test = "${ department.id == editUser.department_id }">
 						<option value = "${ department.id }" selected = "${ department.name }" > ${ department.name }</option>
