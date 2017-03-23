@@ -18,7 +18,7 @@
 	<div class = "errorMessages">
 		<ul>
 			<c:forEach items = "${ errorMessages }" var = "message" >
-				<c:out value = "${ message }" /><br />
+				・<c:out value = "${ message }" /><br />
 			</c:forEach>
 		</ul>
 	</div>
