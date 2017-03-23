@@ -9,7 +9,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>ユーザー登録</title>
 	<link href = "css/style.css" rel = "stylesheet" type = "text/css">
-	<TITLE></TITLE>
+	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 </head>
 <body>
 <div class = "main-contents">
@@ -62,12 +62,13 @@
 			</c:if>
 
 			<c:if test = "${ department.id != user.department_id  }">
-				<option value = "${ department.id }" > ${ department.name }</option>
+				<option value = "${ department.id }"  > ${ department.name }</option>
 			</c:if>
 		</c:forEach>
 	</select><br /><br />
 	<input type = "submit" value = "登録" /><br />
 </form>
+
 </div>
 <div class = "back">
 	<a href = "management" >戻る</a>
