@@ -39,13 +39,12 @@ function check(){
 <h2>ホーム</h2>
 <div class = "header">
 	<c:if test="${ not empty loginUser }">
-		<a href="newPost">
+		<a href="newPost"> 新規投稿
 			<input type="hidden" name = "branch_id" value = "${ user.branch_id }" />
 			<input type="hidden" name = "department_id" value = "${ user.department_id }" />
-			新規投稿
 		</a>
 		<c:if test = "${ user.department_id == 1 }">
-			<a href="management"> ユーザー管理</a>
+			<a href="management"> ユーザー管理 </a>
 		</c:if>
 		<a href="logout"> ログアウト</a>
 	</c:if>

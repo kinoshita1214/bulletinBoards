@@ -13,6 +13,7 @@
 </head>
 <body>
 <div class = "main-contents">
+
 <h2>新規ユーザー登録</h2>
 <c:if test = "${ not empty errorMessages }">
 	<div class = "errorMessages">
@@ -24,13 +25,16 @@
 	</div>
 	<c:remove var = "errorMessages" scope = "session" />
 </c:if>
+<div class = "back">
+	<a href = "management" >戻る</a>
+</div>
 <div class = "signup">
 <form action = "signup" method = "post"><br />
 	<label for = "login_id">ログインID(半角英数字6文字以上20文字以下)</label><br />
 	<input name = "login_id" id = "login_id" size ="35" style ="font-size: 12pt" value = "${ user.login_id }"/><br /><br />
 
 	<label for = "name">ユーザー名(10文字以下)</label><br />
-	<input name = "name" id = "name" size = "16" style ="font-size: 12pt" value = "${ user.name }" /><br /><br />
+	<input name = "name" id = "name" size = "16"  style ="font-size: 12pt" value = "${ user.name }" /><br /><br />
 
 	<label for = "password">パスワード(6文字以上255文字以下)</label><br />
 	<input name = "password" type = "password" id = "password" size = "35" style ="font-size: 12pt"/><br /><br />
@@ -70,9 +74,7 @@
 </form>
 
 </div>
-<div class = "back">
-	<a href = "management" >戻る</a>
-</div><br/>
+
 <div class="copyright">Copyright(c)Keisuke Kinoshita</div>
 </div>
 </body>

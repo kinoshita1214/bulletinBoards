@@ -14,6 +14,9 @@
 
 <div class = "main-contents">
 <h2>新規投稿</h2>
+<div class ="back">
+	<a href = "./">戻る</a>
+</div><br />
 <c:if test = "${ not empty errorMessages }">
 	<div class = "errorMessages">
 		<ul>
@@ -35,7 +38,6 @@
 		<br />
 		<input type="submit" value="投稿">
 	</form><br />
-<a href = "./">戻る</a>
 </div><br/>
 <div class="copyright">Copyright(c)Keisuke Kinoshita</div>
 </div>

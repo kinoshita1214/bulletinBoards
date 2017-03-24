@@ -68,6 +68,9 @@ function reborn(){
 <div class="header">
 	<c:if test="${ not empty loginUser }">
 		<a href="signup">新規ユーザー登録</a>
+		<div class = "back">
+			<a class = "back" href = "./" >戻る</a>
+		</div>
 	</c:if>
 </div>
 
@@ -128,9 +131,6 @@ function reborn(){
 		<tr>
 		</c:forEach>
 	</table><br />
-	<div class = "back">
-		<a href = "./" >戻る</a>
-	</div>
 </div><br/>
 <div class="copyright">Copyright(c)Keisuke Kinoshita</div>
 </div>
