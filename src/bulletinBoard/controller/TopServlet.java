@@ -37,6 +37,7 @@ public class TopServlet extends HttpServlet {
 		SimpleDateFormat now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ss");
 		String start = now.format(new Date()) + " 00:00:00";
 		String end = now.format(new Date()) + " 23:59:59";
+
 		if (dates != null) {
 			start = dates.get(0).getInsertDate().toString();
 		}

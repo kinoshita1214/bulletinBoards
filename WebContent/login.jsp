@@ -33,7 +33,7 @@
 	<input name = "password" type = "password" id = "password" size = "25" style = "font-size: 15px" /><br />
 	<br />
 	<input type = "submit" value = "ログイン" /><br /><br />
-	</form>
+</form>
 <div class="copyright">Copyright(c)Keisuke Kinoshita</div><br />
 </div><br/>
 
